@@ -1,0 +1,12 @@
+----- Version History for the Pragosh Bot -----
+
+-- Version 1.0 --
+Inital creation.
+Provides no functionality.
+Release date: December 07, 2021
+
+-- Version 1.1 --
+Adds functionality for hello message.
+Adds embed message feature.
+Adds auto-reacting to messages containing "Pog" of any case
+Release date: December 08, 2021
