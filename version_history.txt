@@ -10,3 +10,12 @@ Adds functionality for hello message.
 Adds embed message feature.
 Adds auto-reacting to messages containing "Pog" of any case
 Release date: December 08, 2021
+
+-- Version 1.2 --
+Added beginnings of command functionality
+Changed the bot's bio response from a checked message to a commanded response
+Added auto-replying to messages sent from Tatsu bot
+Added random number generator feature that takes in arguments
+Added help command that provides information for interacting with the bot
+Added coin flip feature
+Release date: December 12, 2021
