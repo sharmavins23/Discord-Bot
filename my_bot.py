@@ -58,13 +58,13 @@ async def command_help(context, command=None):
     if context.message.author.bot:  # don't want to take commands from any bots
         return
     if command == None:
-        help_message = 'List of current commands: \nbio \nrandomnumber \n\nFor further help, type \'Pragosh, help `command`\''
+        help_message = 'List of current commands: \nbio \nrandomnumber \ncoinflip \n\nFor further help, type \'Pragosh, help `command`\''
     elif command == "bio":
         help_message = 'The bio command returns information about the currently released version of the bot'
     elif command == "randomnumber":
         help_message = 'To use the random number function, type \'Pragosh, randomnumber `starting integer` `ending integer` `count`\'\n\nNote: The count of generated numbers is optional. The default is 1'
     elif command == "coinflip":
-        help_message = ''
+        help_message = 'The coin flip command returns a randomly flipped coin featuring the immortal Queen Elizabeth'
 
     await context.message.reply(help_message)
 

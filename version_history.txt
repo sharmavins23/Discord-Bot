@@ -22,4 +22,5 @@ Release date: December 12, 2021
 
 -- Version 1.2.1 --
 Fixed auto-replying to Tatsu
+Fixed help command to include coinflip help
 Release date: January 02, 2022
