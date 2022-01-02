@@ -19,3 +19,7 @@ Added random number generator feature that takes in arguments
 Added help command that provides information for interacting with the bot
 Added coin flip feature
 Release date: December 12, 2021
+
+-- Version 1.2.1 --
+Fixed auto-replying to Tatsu
+Release date: January 02, 2022
