@@ -3,17 +3,18 @@
 # Don't copy this or I might cry
 
 # Imports because it's cool to have other stuff
-import random
 import discord
 from discord.ext import commands, tasks
 import spotipy
-import server_token
-import channel_tokens
-import spotify_tokens
+import src.server_token as server_token
+import src.channel_tokens as channel_tokens
+import src.spotify.spotify_tokens as spotify_tokens
+from src.randomness import Randomness
 
 # Client - this is where the bot comes outta the womb
 client = commands.Bot(command_prefix=commands.when_mentioned_or(
     'Pragosh, '), help_command=None)
+client.add_cog(Randomness(client))
 
 # Variables because calling stuff smaller stuff makes me a happy chappy
 server_token = server_token.get_server_token()
@@ -27,13 +28,6 @@ server_token = server_token.get_server_token()
 async def on_ready():
     bot_chat = client.get_channel(channel_tokens.get_bot_tchat())
     await bot_chat.send('I am Pragosh. And I am the Messiah')
-
-
-# Pragosh's background behavior
-# @client.tasks.loop(seconds=1.0)
-# async def tribe_blend_checkup():
-#    bot_chat = client.get_channel(channel_tokens.get_bot_tchat)
-#    await bot_chat.send('lol')
 
 
 # Pragosh's responses to messages
@@ -79,38 +73,10 @@ async def bot_bio(context):
     bio_embed.add_field(name="Background",
                         value="I am the Messiah", inline=False)
     bio_embed.add_field(name="Current Version",
-                        value="v1.2.0", inline=True)
+                        value="v1.2.1.1", inline=True)
     bio_embed.add_field(name="Release Date",
                         value="December 12, 2021", inline=True)
     await context.message.reply(embed=bio_embed)
-
-
-# Random Number Generator Command
-@client.command(name="randomnumber")
-async def rand_num(context, lower_bound=0, upper_bound=0, count=0):
-    if context.message.author.bot:  # don't want to take commands from any bots
-        return
-    random_numbers_str = ''
-    if count == 0:
-        count = 1
-    while count > 0:
-        number = random.randint(lower_bound, upper_bound)
-        random_numbers_str = random_numbers_str + str(number) + ', '
-        count -= 1
-    random_numbers_str = random_numbers_str[:-2]
-    await context.message.reply("Your random number(s): " + random_numbers_str)
-
-
-# Coin Flip Command
-@client.command(name="coinflip")
-async def coin_flip(context):
-    if context.message.author.bot:  # don't want to take commands from any bots
-        return
-    flip = random.randint(1, 2)
-    if flip == 1:
-        await context.message.reply(file=discord.File('FlippedHeads.png'))
-    else:
-        await context.message.reply(file=discord.File('FlippedTails.png'))
 
 
 # --- Run Time ---

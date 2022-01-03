@@ -24,3 +24,8 @@ Release date: December 12, 2021
 Fixed auto-replying to Tatsu
 Fixed help command to include coinflip help
 Release date: January 02, 2022
+
+-- Version 1.2.1.1 --
+Organized file structure
+Began using Cogs to further increase organization
+Release date: January 02, 2022
