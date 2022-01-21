@@ -4,22 +4,23 @@
 
 # Imports because it's cool to have other stuff
 import discord
-from discord.ext import commands, tasks
+from discord.ext import commands
 import spotipy
+from src.spotify.spotifypassives import SpotifyPassives
+import src.spotify.spotify_tokens
 import src.server_token as server_token
 import src.channel_tokens as channel_tokens
-import src.spotify.spotify_tokens as spotify_tokens
+import src.role_tokens as role_tokens
 from src.randomness import Randomness
 
 # Client - this is where the bot comes outta the womb
 client = commands.Bot(command_prefix=commands.when_mentioned_or(
     'Pragosh, '), help_command=None)
 client.add_cog(Randomness(client))
+client.add_cog(SpotifyPassives(client))
 
 # Variables because calling stuff smaller stuff makes me a happy chappy
 server_token = server_token.get_server_token()
-#auth_manager = spotipy.SpotifyClientCredentials()
-#sp = spotipy.Spotify(auth_manager=auth_manager)
 
 
 # --- Work Time ---
@@ -28,6 +29,7 @@ server_token = server_token.get_server_token()
 async def on_ready():
     bot_chat = client.get_channel(channel_tokens.get_bot_tchat())
     await bot_chat.send('I am Pragosh. And I am the Messiah')
+    # await bot_chat.send('<@&%s>' % (role_tokens.get_Curtis_role()))
 
 
 # Pragosh's responses to messages
@@ -35,7 +37,7 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:  # don't want to check our own messages
         return
-    if message.author.id == 172002275412279296:  # instant replying to "Tatsu#8792" - this won't work
+    if message.author.id == 172002275412279296:  # instant replying to "Tatsu#8792"
         context = await client.get_context(message)
         await context.message.reply("Please stop abusing your girlfriend")
     elif "POG" in message.content.upper():  # instant reacting to messages with pog
@@ -73,9 +75,9 @@ async def bot_bio(context):
     bio_embed.add_field(name="Background",
                         value="I am the Messiah", inline=False)
     bio_embed.add_field(name="Current Version",
-                        value="v1.2.1.1", inline=True)
+                        value="v1.3", inline=True)
     bio_embed.add_field(name="Release Date",
-                        value="December 12, 2021", inline=True)
+                        value="January 20, 2022", inline=True)
     await context.message.reply(embed=bio_embed)
 
 

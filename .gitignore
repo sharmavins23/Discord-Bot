@@ -3,3 +3,5 @@ channel_tokens.py
 __pycache__
 .vscode/settings.json
 spotify_tokens.py
+.cache
+role_tokens.py
