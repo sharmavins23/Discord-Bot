@@ -8,19 +8,19 @@ from discord.ext import commands
 import spotipy
 from src.spotify.spotifypassives import SpotifyPassives
 import src.spotify.spotify_tokens
-import src.server_token as server_token
+import src.application_token as application_token
 import src.channel_tokens as channel_tokens
 import src.role_tokens as role_tokens
 from src.randomness import Randomness
 
 # Initialize bot
 client = commands.Bot(command_prefix=commands.when_mentioned_or(
-    'Pragosh, '), help_command=None)
+    'alpha, '), help_command=None)
 client.add_cog(Randomness(client))
 client.add_cog(SpotifyPassives(client))
 
 # Variables because calling stuff smaller stuff makes me a happy chappy
-server_token = server_token.get_server_token()
+application_token = application_token.get_application_token()
 
 
 # --- Work Time ---
@@ -81,4 +81,4 @@ async def bot_bio(context):
 
 
 # --- Run Time ---
-client.run(server_token)
+client.run(application_token)
