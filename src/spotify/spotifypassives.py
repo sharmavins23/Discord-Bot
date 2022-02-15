@@ -46,7 +46,7 @@ class SpotifyPassives(commands.Cog):
 
     # Pragosh's background behavior
 
-    @tasks.loop(hours=168)
+    @tasks.loop(hours=(24*7))  # running loop every 7 days
     async def tribe_blend_checkup(self):
         # Grab relevant server channels used to send messages
         bot_chat = self.bot.get_channel(get_bot_tchat())
@@ -98,13 +98,6 @@ class SpotifyPassives(commands.Cog):
                 # Adding modified added info to list
                 blend_list[3].append(added_datetime)
 
-            # Test output. Sending track item info
-            output = output + \
-                (str(idx+1)+" "+track['name']+" " +
-                 added_by['id']+" "+added_at+"\n")  # this prints a dupe track atm if next one isn't added to list
-
-            # await bot_chat.send(str(idx+1)+" "+track['name']+" "+added_by['id'])
-
         # Creating a list to track users that we have already messaged
         ping_list = []
         # Looping through playlist info 2D list
@@ -114,10 +107,10 @@ class SpotifyPassives(commands.Cog):
                 continue
             # Check that we have not already pinged this ID item
             if item[1] not in (ping_list):
-                # print(
-                #     '<@&'+str(item[1])+'> You have stuff in Tribe Blend that is over 4 weeks old!!')
-                await music_chat.send(
+                print(
                     '<@&'+str(item[1])+'> You have stuff in Tribe Blend that is over 4 weeks old!!')
+                # await music_chat.send(
+                #     '<@&'+str(item[1])+'> You have stuff in Tribe Blend that is over 4 weeks old!!')
             # Add this ID item to the list of users already messaged
             ping_list.append(item[1])
 

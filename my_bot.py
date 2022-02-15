@@ -13,7 +13,7 @@ import src.channel_tokens as channel_tokens
 import src.role_tokens as role_tokens
 from src.randomness import Randomness
 
-# Client - this is where the bot comes outta the womb
+# Initialize bot
 client = commands.Bot(command_prefix=commands.when_mentioned_or(
     'Pragosh, '), help_command=None)
 client.add_cog(Randomness(client))
@@ -29,7 +29,6 @@ server_token = server_token.get_server_token()
 async def on_ready():
     bot_chat = client.get_channel(channel_tokens.get_bot_tchat())
     await bot_chat.send('I am Pragosh. And I am the Messiah')
-    # await bot_chat.send('<@&%s>' % (role_tokens.get_Curtis_role()))
 
 
 # Pragosh's responses to messages
