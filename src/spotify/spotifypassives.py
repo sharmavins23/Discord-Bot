@@ -107,10 +107,8 @@ class SpotifyPassives(commands.Cog):
                 continue
             # Check that we have not already pinged this ID item
             if item[1] not in (ping_list):
-                print(
+                await music_chat.send(
                     '<@&'+str(item[1])+'> You have stuff in Tribe Blend that is over 4 weeks old!!')
-                # await music_chat.send(
-                #     '<@&'+str(item[1])+'> You have stuff in Tribe Blend that is over 4 weeks old!!')
             # Add this ID item to the list of users already messaged
             ping_list.append(item[1])
 
