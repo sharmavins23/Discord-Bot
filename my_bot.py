@@ -72,7 +72,7 @@ async def bot_bio(context):
     bio_embed.add_field(name="Background",
                         value="I am the Messiah", inline=False)
     bio_embed.add_field(name="Current Version",
-                        value="v1.4", inline=True)
+                        value="v1.4.1", inline=True)
     bio_embed.add_field(name="Release Date",
                         value="February 14, 2022", inline=True)
     await context.message.reply(embed=bio_embed)

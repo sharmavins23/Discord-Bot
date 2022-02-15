@@ -45,3 +45,7 @@ Release date: January 20, 2022
 Heroku deployment
 Shifting of Git structure to incorporate a development branch and releases branch
 Release date: February 14, 2022
+
+-- Version 1.4.1
+Adding necessary pieces to run python script on Heroku
+Release date: February 14, 2022
