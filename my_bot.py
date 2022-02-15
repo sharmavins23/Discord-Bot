@@ -3,14 +3,12 @@
 # Don't copy this or I might cry
 
 # Imports because it's cool to have other stuff
+import os
 import discord
 from discord.ext import commands
 import spotipy
 from src.spotify.spotifypassives import SpotifyPassives
-import src.spotify.spotify_tokens
-import src.server_token as server_token
-import src.channel_tokens as channel_tokens
-import src.role_tokens as role_tokens
+import src.tokens as tokens
 from src.randomness import Randomness
 
 # Initialize bot
@@ -20,14 +18,14 @@ client.add_cog(Randomness(client))
 client.add_cog(SpotifyPassives(client))
 
 # Variables because calling stuff smaller stuff makes me a happy chappy
-server_token = server_token.get_server_token()
+server_token = tokens.get_application_token()
 
 
 # --- Work Time ---
 # Pragosh's startup sequence
 @client.event
 async def on_ready():
-    bot_chat = client.get_channel(channel_tokens.get_bot_tchat())
+    bot_chat = client.get_channel(tokens.get_bot_tchat())
     await bot_chat.send('I am Pragosh. And I am the Messiah')
 
 
@@ -74,9 +72,9 @@ async def bot_bio(context):
     bio_embed.add_field(name="Background",
                         value="I am the Messiah", inline=False)
     bio_embed.add_field(name="Current Version",
-                        value="v1.3", inline=True)
+                        value="v1.4", inline=True)
     bio_embed.add_field(name="Release Date",
-                        value="January 20, 2022", inline=True)
+                        value="February 14, 2022", inline=True)
     await context.message.reply(embed=bio_embed)
 
 

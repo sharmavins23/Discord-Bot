@@ -3,9 +3,7 @@ import discord
 from discord.ext import commands, tasks
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
-from ..channel_tokens import get_bot_tchat, get_music_tchat
-from .spotify_tokens import *
-from ..role_tokens import *
+from ..tokens import *
 import datetime
 
 
@@ -27,7 +25,7 @@ class SpotifyPassives(commands.Cog):
     # Convert spotify IDs to Discord role IDs
 
     def spotifyid_to_discordid(self, spot_id):
-        # Setting a dictionary of values
+        # Setting a dictionary of values of Tribe Blenders
         switcher = {
             'swegmaster089': get_Curtis_role(),
             'benjaminlight132': get_Ben_role(),

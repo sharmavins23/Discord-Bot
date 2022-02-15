@@ -40,3 +40,8 @@ Edits created list to use Discord role IDs instead of Spotify IDs
 Edits list to only include tracks that are outside of specified date range
 Sends a message to users in list of outdated tracks. Includes check to prevent dupe messages
 Release date: January 20, 2022
+
+-- Version 1.4
+Heroku deployment
+Shifting of Git structure to incorporate a development branch and releases branch
+Release date: February 14, 2022
