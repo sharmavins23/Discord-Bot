@@ -49,3 +49,7 @@ Release date: February 14, 2022
 -- Version 1.4.1
 Adding necessary pieces to run python script on Heroku
 Release date: February 14, 2022
+
+-- Version 1.4.1.1
+Editing a few lines, calls, and imports.
+Release date: February 16, 2022
