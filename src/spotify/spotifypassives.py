@@ -64,7 +64,7 @@ class SpotifyPassives(commands.Cog):
 
         # Get track information for Tribe Blend playlist via playlistID
         tribe_blend = sp_client.playlist_tracks(
-            '4zJqkYjPGRSv2TLvISLp7x', fields=None, limit=200, offset=0, market='US')
+            '4zJqkYjPGRSv2TLvISLp7x', fields=None, limit=100, offset=0, market='US')
 
         # Output string for testing
         output = ''
