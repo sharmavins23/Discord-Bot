@@ -66,3 +66,7 @@ Release date: February 16, 2022
 -- Version 1.4.2.2
 Resolving issue with sending messages
 Release date: February 16, 2022
+
+-- Version 1.4.2.3
+Hotfix to resolve crashing of web service on Heroku
+Release date: February 16, 2022
