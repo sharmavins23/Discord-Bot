@@ -1,3 +1,7 @@
 __pycache__
 .vscode/settings.json
 .cache
+role_tokens.py
+channel_tokens.py
+application_token.py
+spotify_tokens.py

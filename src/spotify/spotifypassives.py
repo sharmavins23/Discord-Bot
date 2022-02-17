@@ -44,6 +44,9 @@ class SpotifyPassives(commands.Cog):
         # Grab relevant server channels used to send messages
         music_chat = self.bot.get_channel(tokens.get_music_tchat())
 
+        # letting music channel know that the process is beginning
+        await music_chat.send('Checking Spotify...')
+
         # Setting a scope for CAC flow
         playlistscope = "playlist-read-collaborative"
         # Get CAC authorized variable
@@ -55,7 +58,7 @@ class SpotifyPassives(commands.Cog):
         sp_client = spotipy.Spotify(auth_manager=auth_manager)
 
         # Get track information for Tribe Blend playlist via playlistID
-        tribe_blend = sp_auth.playlist_tracks(
+        tribe_blend = sp_client.playlist_tracks(
             '4zJqkYjPGRSv2TLvISLp7x', fields=None, limit=100, offset=0, market='US')
 
         # Manipulatable 2D list for necessary playlist info
@@ -105,5 +108,4 @@ class SpotifyPassives(commands.Cog):
     @tribe_blend_checkup.before_loop
     async def before_printer(self):
         # wait for bot to be online and ready before beginning Tribe Blend Task
-        print('Checking Spotify...')
         await self.bot.wait_until_ready()

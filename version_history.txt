@@ -53,3 +53,8 @@ Release date: February 14, 2022
 -- Version 1.4.1.1
 Editing a few lines, calls, and imports.
 Release date: February 16, 2022
+
+-- Version 1.4.2
+Changing spotify passive workflow to use CC flow as opposed to CAC flow
+gitignore file expanded to include locally saved files that are used for development testing
+Release date: February 16, 2022
