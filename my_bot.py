@@ -28,7 +28,7 @@ application_token = application_token.get_application_token()
 @client.event
 async def on_ready():
     bot_chat = client.get_channel(channel_tokens.get_bot_tchat())
-    await bot_chat.send('I am Pragosh. And I am the Messiah')
+    await bot_chat.send('test bot ready')
 
 
 # Pragosh's responses to messages

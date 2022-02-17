@@ -1,42 +1,6 @@
------ Version History for the Pragosh Bot -----
+----- Recent version changes for testing with Pragosh Test Bot -----
 
--- Version 1.0 --
-Inital creation.
-Provides no functionality.
-Release date: December 07, 2021
-
--- Version 1.1 --
-Adds functionality for hello message.
-Adds embed message feature.
-Adds auto-reacting to messages containing "Pog" of any case
-Release date: December 08, 2021
-
--- Version 1.2 --
-Added beginnings of command functionality
-Changed the bot's bio response from a checked message to a commanded response
-Added auto-replying to messages sent from Tatsu bot
-Added random number generator feature that takes in arguments
-Added help command that provides information for interacting with the bot
-Added coin flip feature
-Release date: December 12, 2021
-
--- Version 1.2.1 --
-Fixed auto-replying to Tatsu
-Fixed help command to include coinflip help
-Release date: January 02, 2022
-
--- Version 1.2.1.1 --
-Organized file structure
-Began using Cogs to further increase organization
-Release date: January 02, 2022
-
--- Version 1.3 --
-Added background task(s)
-Initializes Spotify Authorization flow
-Initializes Spotify Client Credential flow
-Pulls information from Tribe Blend playlist
-Creates a list for parsed Tribe Blend info
-Edits created list to use Discord role IDs instead of Spotify IDs
-Edits list to only include tracks that are outside of specified date range
-Sends a message to users in list of outdated tracks. Includes check to prevent dupe messages
-Release date: January 20, 2022
+-- Version 1.4.2 beta
+Confirmed that CC flow can be used as opposed to CAC flow which needs authorization which I still haven't figured out how to work with Heroku yet
+Added back in recently deleted token get files. We'll have to keep these locally for testing and gitignore them in prod branch
+2/16/22
