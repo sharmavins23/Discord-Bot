@@ -51,7 +51,15 @@ def get_scary_tchat():
 
 
 def get_bot_tchat():
-    return os.environ['BOT_TCHAT']
+    bot_tchat = os.environ['BOT_TCHAT']
+    if type(bot_tchat) == str:
+        bot_tchat = int(bot_tchat)
+    elif type(bot_tchat) == int:
+        pass  # Nothing to do here!
+    else:
+        raise ValueError(f"We got some weird type: {type(bot_tchat)}")
+
+    return bot_tchat
 
 
 def get_gen_vchat():
