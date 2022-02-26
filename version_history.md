@@ -2,7 +2,7 @@
 
 The following is a printed overview of bot changes and release functionality.
 
-**Current version: [v1.4](#-Version-1.4)**
+**Current version: [v1.4](https://github.com/sharmavins23/Discord-Bot/blob/vin-suggestions/version_history.md#version-14)**
 
 # Version 1
 
