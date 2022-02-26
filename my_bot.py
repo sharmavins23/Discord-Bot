@@ -12,8 +12,10 @@ import src.tokens as tokens
 from src.randomness import Randomness
 
 # Initialize bot
-client = commands.Bot(command_prefix=commands.when_mentioned_or(
-    'Pragosh, '), help_command=None)
+client = commands.Bot(
+    command_prefix=commands.when_mentioned_or('Pragosh, '),
+    help_command=None
+)
 client.add_cog(Randomness(client))
 client.add_cog(SpotifyPassives(client))
 
@@ -67,14 +69,28 @@ async def command_help(context, command=None):
 async def bot_bio(context):
     if context.message.author.bot:  # don't want to take commands from any bots
         return
+
     bio_embed = discord.Embed(
-        title="Hi!! I'm Pragosh.", description="This is all about me.", color=0x664616, url="https://github.com/18maherc/Discord-Bot")
-    bio_embed.add_field(name="Background",
-                        value="I am the Messiah", inline=False)
-    bio_embed.add_field(name="Current Version",
-                        value="v1.4.2.3", inline=True)
-    bio_embed.add_field(name="Release Date",
-                        value="February 16, 2022", inline=True)
+        title="Hi!! I'm Pragosh.",
+        description="This is all about me.",
+        color=0x664616,
+        url="https://github.com/18maherc/Discord-Bot"
+    )
+    bio_embed.add_field(
+        name="Background",
+        value="I am the Messiah",
+        inline=False
+    )
+    bio_embed.add_field(
+        name="Current Version",
+        value="v1.4.2.3",
+        inline=True
+    )
+    bio_embed.add_field(
+        name="Release Date",
+        value="February 16, 2022",
+        inline=True
+    )
     await context.message.reply(embed=bio_embed)
 
 
