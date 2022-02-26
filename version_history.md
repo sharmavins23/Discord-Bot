@@ -2,7 +2,7 @@
 
 The following is a printed overview of bot changes and release functionality.
 
-**Current version: [v1.4.2.3](###-Version-1.4.2)**
+**Current version: [v1.4](#-Version-1.4)**
 
 # Version 1
 
