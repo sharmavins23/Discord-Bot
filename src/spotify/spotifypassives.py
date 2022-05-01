@@ -14,6 +14,10 @@ class SpotifyPassives(commands.Cog):
         # Initialize bot as self from Cog
         self.bot = bot
 
+        # Set authorization in CC flow
+        auth_manager = SpotifyClientCredentials()
+        self.sp_client = spotipy.Spotify(auth_manager=auth_manager)
+
         # start up background tasks
         self.tribe_blend_checkup.start()
 
@@ -41,24 +45,28 @@ class SpotifyPassives(commands.Cog):
 
     @tasks.loop(hours=(24*7))  # running loop every 7 days
     async def tribe_blend_checkup(self):
+        trbl_update_string = f"<@&{tokens.get_TribeBlend_role}>, Tribe Blend 2.0 has been updated!"
         # Grab relevant server channels used to send messages
         music_chat = self.bot.get_channel(tokens.get_music_tchat())
+        async for message in music_chat.history(limit=1000, after=(datetime.datetime.now() - datetime.timedelta(weeks=1))):
+            if message.author == self.bot.user:
+                if "Tribe Blend 2.0 has been updated!" in message.content:
+                    return
+                else:
+                    update_TrBl2()
+                    await music_chat.send(trbl_update_string)
 
         # letting music channel know that the process is beginning
-        await music_chat.send('Checking Spotify...')
+        # await music_chat.send('Checking Spotify...')
 
         # Setting a scope for CAC flow
-        playlistscope = "playlist-read-collaborative"
+        # playlistscope = "playlist-read-collaborative"
         # Get CAC authorized variable
-        sp_auth = spotipy.Spotify(
-            auth_manager=SpotifyOAuth(scope=playlistscope))
-
-        # Set authorization in CC flow
-        auth_manager = SpotifyClientCredentials()
-        sp_client = spotipy.Spotify(auth_manager=auth_manager)
+        # sp_auth = spotipy.Spotify(
+        #    auth_manager=SpotifyOAuth(scope=playlistscope))
 
         # Get track information for Tribe Blend playlist via playlistID
-        tribe_blend = sp_client.playlist_tracks(
+        tribe_blend = self.sp_client.playlist_tracks(
             '4zJqkYjPGRSv2TLvISLp7x', fields=None, limit=100, offset=0, market='US')
 
         # Manipulatable 2D list for necessary playlist info

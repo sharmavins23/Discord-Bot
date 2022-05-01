@@ -144,3 +144,11 @@ def get_Vineeth_role():
 
 def get_Will_role():
     return int(os.environ['WILL_ROLE'])
+
+
+def get_TribeBlend1_ID():
+    return '4zJqkYjPGRSv2TLvISLp7x'
+
+
+def get_TribeBlend2_ID():
+    return '2JML26sLyhDe3LWjJMjMl5'
