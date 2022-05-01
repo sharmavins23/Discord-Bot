@@ -8,17 +8,6 @@ import discord
 from discord.ext import commands
 import spotipy
 from src.spotify.spotifypassives import SpotifyPassives
-<<<<<<< HEAD
-import src.spotify.spotify_tokens
-import src.application_token as application_token
-import src.channel_tokens as channel_tokens
-import src.role_tokens as role_tokens
-from src.randomness import Randomness
-
-# Initialize bot
-client = commands.Bot(command_prefix=commands.when_mentioned_or(
-    'alpha, '), help_command=None)
-=======
 import src.tokens as tokens
 from src.randomness import Randomness
 
@@ -27,29 +16,19 @@ client = commands.Bot(
     command_prefix=commands.when_mentioned_or('Pragosh, '),
     help_command=None
 )
->>>>>>> 23e5bb2015c60d3906e61bd6615b1766497b208b
 client.add_cog(Randomness(client))
 client.add_cog(SpotifyPassives(client))
 
 # Variables because calling stuff smaller stuff makes me a happy chappy
-<<<<<<< HEAD
-application_token = application_token.get_application_token()
-=======
 server_token = tokens.get_application_token()
->>>>>>> 23e5bb2015c60d3906e61bd6615b1766497b208b
 
 
 # --- Work Time ---
 # Pragosh's startup sequence
 @client.event
 async def on_ready():
-<<<<<<< HEAD
-    bot_chat = client.get_channel(channel_tokens.get_bot_tchat())
-    await bot_chat.send('test bot ready')
-=======
     bot_chat = client.get_channel(tokens.get_bot_tchat())
     await bot_chat.send('I am Pragosh. And I am the Messiah')
->>>>>>> 23e5bb2015c60d3906e61bd6615b1766497b208b
 
 
 # Pragosh's responses to messages
