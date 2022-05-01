@@ -12,6 +12,7 @@ class Randomness(commands.Cog):
     async def rand_num(self, ctx, lower_bound=0, upper_bound=0, count=0):
         if ctx.message.author.bot:  # don't want to take commands from any bots
             return
+
         random_numbers_str = ''
         if count == 0:
             count = 1
@@ -27,6 +28,7 @@ class Randomness(commands.Cog):
     async def coin_flip(self, ctx):
         if ctx.message.author.bot:  # don't want to take commands from any bots
             return
+
         flip = random.randint(1, 2)
         if flip == 1:
             await ctx.message.reply('https://cdn.discordapp.com/attachments/883740406469234718/927397534568165436/FlippedHeads.png')
