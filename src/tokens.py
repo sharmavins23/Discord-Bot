@@ -76,59 +76,98 @@ dataDict = {
     'Adam': {
         'role': int(os.environ['ADAM_ROLE']),
         'spotifyid': "asterkool",
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Anand': {
         'role': int(os.environ['ANAND_ROLE']),
         'spotifyid': None,
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Andrew': {
         'role': int(os.environ['ANDREW_ROLE']),
+        'spotifyid': None,
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Andy': {
         'role': int(os.environ['ANDY_ROLE']),
         'spotifyid': 'totalpwnage15',
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Austin': {
         'role': int(os.environ['AUSTIN_ROLE']),
         'spotifyid': "31s5eguzeenufwdbys5rtex4e3ay",
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Ben': {
         'role': int(os.environ['BEN_ROLE']),
         'spotifyid': "benjaminlight132",
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Brindle': {
         'role': int(os.environ['BRINDLE_ROLE']),
         'spotifyid': 'ht68kx83oyis801h03x3iqa59',
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Curtbot': {
         'role': int(os.environ['CURTBOT_ROLE']),
+        'spotifyid': None,
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Curtis': {
         'role': int(os.environ['CURTIS_ROLE']),
         'spotifyid': "swegmaster089",
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Ed': {
         'role': int(os.environ['ED_ROLE']),
+        'spotifyid': None,
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Finn': {
         'role': int(os.environ['FINN_ROLE']),
+        'spotifyid': None,
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Joey': {
         'role': int(os.environ['JOEY_ROLE']),
+        'spotifyid': None,
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Kennedy': {
         'role': int(os.environ['KENNEDY_ROLE']),
+        'spotifyid': None,
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Kevin': {
         'role': int(os.environ['KEVIN_ROLE']),
+        'spotifyid': None,
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Logan': {
         'role': int(os.environ['LOGAN_ROLE']),
         'spotifyid': 'q3tg252wqc5ntxe2fagbdtchu',
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Mike': {
         'role': int(os.environ['MIKE_ROLE']),
-
+        'spotifyid': None,
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Nick': {
         'role': int(os.environ['NICK_ROLE']),
@@ -139,10 +178,14 @@ dataDict = {
     'Gick': {
         'role': int(os.environ['NICKG_ROLE']),
         'spotifyid': "7a9uyyfrf5m61tft6anmx3csp",
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Payton': {
         'role': int(os.environ['PAYTON_ROLE']),
         'spotifyid': "nia8wdzes92kopprtw6mlj4xz",
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Vins': {
         'role': int(os.environ['VINEETH_ROLE']),  # Use Vins instead reee
@@ -152,8 +195,10 @@ dataDict = {
     },
     'Will': {
         'role': int(os.environ['WILL_ROLE']),
+        'spotifyid': None,
+        'onrepeat': None,
+        'repeatrewind': None,
     }
-
 }
 
 
