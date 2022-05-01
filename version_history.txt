@@ -1,6 +1,0 @@
------ Recent version changes for testing with Pragosh Test Bot -----
-
--- Version 1.5 beta
-Testing addition of random color gen with hex code, R/G/B, and sample
-Testing using local PNGs for coinflip instead of advised way of using Discord attachment links
-Installed Pillow to use for image creation (be sure to update requirements in release)

@@ -3,10 +3,12 @@
 # Don't copy this or I might cry
 
 # Imports because it's cool to have other stuff
+import os
 import discord
 from discord.ext import commands
 import spotipy
 from src.spotify.spotifypassives import SpotifyPassives
+<<<<<<< HEAD
 import src.spotify.spotify_tokens
 import src.application_token as application_token
 import src.channel_tokens as channel_tokens
@@ -16,19 +18,38 @@ from src.randomness import Randomness
 # Initialize bot
 client = commands.Bot(command_prefix=commands.when_mentioned_or(
     'alpha, '), help_command=None)
+=======
+import src.tokens as tokens
+from src.randomness import Randomness
+
+# Initialize bot
+client = commands.Bot(
+    command_prefix=commands.when_mentioned_or('Pragosh, '),
+    help_command=None
+)
+>>>>>>> 23e5bb2015c60d3906e61bd6615b1766497b208b
 client.add_cog(Randomness(client))
 client.add_cog(SpotifyPassives(client))
 
 # Variables because calling stuff smaller stuff makes me a happy chappy
+<<<<<<< HEAD
 application_token = application_token.get_application_token()
+=======
+server_token = tokens.get_application_token()
+>>>>>>> 23e5bb2015c60d3906e61bd6615b1766497b208b
 
 
 # --- Work Time ---
 # Pragosh's startup sequence
 @client.event
 async def on_ready():
+<<<<<<< HEAD
     bot_chat = client.get_channel(channel_tokens.get_bot_tchat())
     await bot_chat.send('test bot ready')
+=======
+    bot_chat = client.get_channel(tokens.get_bot_tchat())
+    await bot_chat.send('I am Pragosh. And I am the Messiah')
+>>>>>>> 23e5bb2015c60d3906e61bd6615b1766497b208b
 
 
 # Pragosh's responses to messages
@@ -66,14 +87,28 @@ async def command_help(context, command=None):
 async def bot_bio(context):
     if context.message.author.bot:  # don't want to take commands from any bots
         return
+
     bio_embed = discord.Embed(
-        title="Hi!! I'm Pragosh.", description="This is all about me.", color=0x664616, url="https://github.com/18maherc/Discord-Bot")
-    bio_embed.add_field(name="Background",
-                        value="I am the Messiah", inline=False)
-    bio_embed.add_field(name="Current Version",
-                        value="v1.3", inline=True)
-    bio_embed.add_field(name="Release Date",
-                        value="January 20, 2022", inline=True)
+        title="Hi!! I'm Pragosh.",
+        description="This is all about me.",
+        color=0x664616,
+        url="https://github.com/18maherc/Discord-Bot"
+    )
+    bio_embed.add_field(
+        name="Background",
+        value="I am the Messiah",
+        inline=False
+    )
+    bio_embed.add_field(
+        name="Current Version",
+        value="v1.4.2.3",
+        inline=True
+    )
+    bio_embed.add_field(
+        name="Release Date",
+        value="February 16, 2022",
+        inline=True
+    )
     await context.message.reply(embed=bio_embed)
 
 
