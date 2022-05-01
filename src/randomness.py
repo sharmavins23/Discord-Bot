@@ -8,10 +8,17 @@ class Randomness(commands.Cog):
         self.bot = bot
 
     # Random color generator command
-
-    @commands.command(name="randomcolor")
-    async def rand_color(self, ctx):
+    @commands.command(name="randomnumber")
+    async def rand_num(self, ctx, lower_bound=0, upper_bound=0, count=0):
         if ctx.message.author.bot:  # don't want to take commands from any bots
+            return
+
+        # Bounds checks on random numbers
+        arbitrarilyHighNumber = 100_000
+        if upper_bound > arbitrarilyHighNumber:
+            await ctx.message.reply(
+                f"The upper bound is too high. Please stop being Ed and choose a reasonable number."
+            )
             return
 
         random_numbers_str = ''
@@ -25,7 +32,6 @@ class Randomness(commands.Cog):
         await ctx.message.reply("Your random number(s): " + random_numbers_str)
 
     # Coin Flip Command
-
     @commands.command(name="coinflip")
     async def coin_flip(self, ctx):
         if ctx.message.author.bot:  # don't want to take commands from any bots
@@ -36,3 +42,26 @@ class Randomness(commands.Cog):
             await ctx.message.reply('https://cdn.discordapp.com/attachments/883740406469234718/927397534568165436/FlippedHeads.png')
         else:
             await ctx.message.reply('https://cdn.discordapp.com/attachments/883740406469234718/927397541237129216/FlippedTails.png')
+
+    # Random color command
+    @commands.command(name="randomcolor")
+    async def rand_color(self, ctx):
+        if ctx.message.author.bot:  # don't take no commands from no robo-bots
+            return
+
+        # Generate a random color
+        r = random.randint(0, 255)
+        g = random.randint(0, 255)
+        b = random.randint(0, 255)
+
+        # Convert to hexadecimal value strings and pad 0s
+        r_hex = str(hex(r)).replace('0x', '').zfill(2)
+        g_hex = str(hex(g)).replace('0x', '').zfill(2)
+        b_hex = str(hex(b)).replace('0x', '').zfill(2)
+
+        # Concatenate the hex values together
+        color_hex = '#' + r_hex + g_hex + b_hex
+
+        await ctx.message.reply(
+            f"View your random color here: https://color.aurlien.net/{color_hex}"
+        )

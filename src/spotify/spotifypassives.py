@@ -9,7 +9,6 @@ import datetime
 
 class SpotifyPassives(commands.Cog):
     # Initialization
-
     def __init__(self, bot):
         # Initialize bot as self from Cog
         self.bot = bot
@@ -22,27 +21,11 @@ class SpotifyPassives(commands.Cog):
         self.tribe_blend_checkup.start()
 
     # Convert spotify IDs to Discord role IDs
-
     def spotifyid_to_discordid(self, spot_id):
-        # Setting a dictionary of values of Tribe Blenders
-        switcher = {
-            'swegmaster089': tokens.get_Curtis_role(),
-            'benjaminlight132': tokens.get_Ben_role(),
-            '7a9uyyfrf5m61tft6anmx3csp': tokens.get_NickG_role(),
-            '31s5eguzeenufwdbys5rtex4e3ay': tokens.get_Austin_role(),
-            'q3tg252wqc5ntxe2fagbdtchu': tokens.get_Logan_role(),
-            'ht68kx83oyis801h03x3iqa59': tokens.get_Brindle_role(),
-            'asterkool': tokens.get_Adam_role(),
-            'fitterminator': tokens.get_Nick_role(),
-            'totalpwnage15': tokens.get_Andy_role(),
-            'nia8wdzes92kopprtw6mlj4xz': tokens.get_Payton_role(),
-            'v9iqkldb8yaxvvifjqwhzijxx': tokens.get_Vineeth_role(),
-        }
         # Allows us to use this dictionary as a switch-case of sorts
-        return switcher.get(spot_id, spot_id)
+        return tokens.get_discordid_from_spotifyid(spot_id)
 
     # Pragosh's background behavior
-
     @tasks.loop(hours=(24*7))  # running loop every 7 days
     async def tribe_blend_checkup(self):
         trbl_update_string = f"<@&{tokens.get_TribeBlend_role}>, Tribe Blend 2.0 has been updated!"
