@@ -1,6 +1,6 @@
 ----- Recent version changes for testing with Pragosh Test Bot -----
 
--- Version 1.4.2 beta
-Confirmed that CC flow can be used as opposed to CAC flow which needs authorization which I still haven't figured out how to work with Heroku yet
-Added back in recently deleted token get files. We'll have to keep these locally for testing and gitignore them in prod branch
-2/16/22
+-- Version 1.5 beta
+Testing addition of random color gen with hex code, R/G/B, and sample
+Testing using local PNGs for coinflip instead of advised way of using Discord attachment links
+Installed Pillow to use for image creation (be sure to update requirements in release)

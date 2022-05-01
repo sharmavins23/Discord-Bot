@@ -36,10 +36,7 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:  # don't want to check our own messages
         return
-    if message.author.id == 172002275412279296:  # instant replying to "Tatsu#8792"
-        context = await client.get_context(message)
-        await context.message.reply("Please stop abusing your girlfriend")
-    elif "POG" in message.content.upper():  # instant reacting to messages with pog
+    if "POG" in message.content.upper():  # instant reacting to messages with pog
         will_pog_emoji = client.get_emoji(918323637398941716)
         await message.add_reaction(will_pog_emoji)
 
