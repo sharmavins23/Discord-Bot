@@ -77,8 +77,9 @@ class SpotifyPassives(commands.Cog):
                             "Added By": str(person),
                             "Pulled From": 'On Repeat'
                         }
-                    # update the dictionary of the songs we're pulling
-                    scraped_songs.update({f"Track{song_count}": track_info})
+                        # update the dictionary of the songs we're pulling
+                        scraped_songs.update(
+                            {f"Track{song_count}": track_info})
 
                 # get the Repeat Rewind playlist data dump
                 repeat_rewind = self.sp_client.playlist_items(
