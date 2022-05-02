@@ -115,3 +115,9 @@ _Release date: February 16, 2022_
 - Cleaned up token/ID retrieval and handling
 
 _Release date: May 1, 2022_
+
+### Version 1.5.1
+
+- Using Authorization Code Workflow to update playlist
+
+_Release date: May 1, 2022_
