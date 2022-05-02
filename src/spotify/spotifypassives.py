@@ -103,7 +103,8 @@ class SpotifyPassives(commands.Cog):
                     scraped_songs.update({f"Track {song_count}": track_info})
 
         # get our scraped songs and put them into a playlist
-        self.sp_client.playlist_replace_items(
-            tokens.get_TribeBlend2_ID, (track['ID'] for track in scraped_songs))
+        # self.sp_client.playlist_replace_items(
+        #    tokens.get_TribeBlend2_ID, (track['ID'] for track in scraped_songs))
+        # ^ this didn't work using the CC flow
 
         print(scraped_songs)
