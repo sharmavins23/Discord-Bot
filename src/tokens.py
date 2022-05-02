@@ -61,6 +61,10 @@ def get_gen_vchat():
     return int(os.environ['GEN_VCHAT'])
 
 
+def get_TribeBlend_role():
+    return 918982886886096957
+
+
 def get_TribeBlend1_ID():
     return '4zJqkYjPGRSv2TLvISLp7x'
 
@@ -74,127 +78,127 @@ def get_TribeBlend2_ID():
 
 dataDict = {
     'Adam': {
-        'role': int(os.environ['ADAM_ROLE']),
+        'role': 739842006263791688,
         'spotifyid': "asterkool",
         'onrepeat': None,
         'repeatrewind': None,
     },
     'Anand': {
-        'role': int(os.environ['ANAND_ROLE']),
+        'role': 923727693554528276,
         'spotifyid': None,
         'onrepeat': None,
         'repeatrewind': None,
     },
     'Andrew': {
-        'role': int(os.environ['ANDREW_ROLE']),
-        'spotifyid': None,
+        'role': 744023449613107203,
+        'spotifyid': '21mujp7bog4xtib3zfj4hwqmi',
         'onrepeat': None,
         'repeatrewind': None,
     },
     'Andy': {
-        'role': int(os.environ['ANDY_ROLE']),
+        'role': 739842129655758969,
         'spotifyid': 'totalpwnage15',
         'onrepeat': None,
         'repeatrewind': None,
     },
     'Austin': {
-        'role': int(os.environ['AUSTIN_ROLE']),
+        'role': 746615079755055186,
         'spotifyid': "31s5eguzeenufwdbys5rtex4e3ay",
         'onrepeat': None,
         'repeatrewind': None,
     },
     'Ben': {
-        'role': int(os.environ['BEN_ROLE']),
+        'role': 923375385931034624,
         'spotifyid': "benjaminlight132",
         'onrepeat': None,
         'repeatrewind': None,
     },
     'Brindle': {
-        'role': int(os.environ['BRINDLE_ROLE']),
+        'role': 739842298174767256,
         'spotifyid': 'ht68kx83oyis801h03x3iqa59',
         'onrepeat': None,
         'repeatrewind': None,
     },
     'Curtbot': {
-        'role': int(os.environ['CURTBOT_ROLE']),
-        'spotifyid': None,
+        'role': 883740669020106812,
+        'spotifyid': 'mlgcongress',
         'onrepeat': None,
         'repeatrewind': None,
     },
     'Curtis': {
-        'role': int(os.environ['CURTIS_ROLE']),
+        'role': 739842049724907542,
         'spotifyid': "swegmaster089",
         'onrepeat': None,
         'repeatrewind': None,
     },
     'Ed': {
-        'role': int(os.environ['ED_ROLE']),
+        'role': 938256001847656498,
         'spotifyid': None,
         'onrepeat': None,
         'repeatrewind': None,
     },
     'Finn': {
-        'role': int(os.environ['FINN_ROLE']),
-        'spotifyid': None,
+        'role': 873272343592591420,
+        'spotifyid': 'freelancebean02',
         'onrepeat': None,
         'repeatrewind': None,
     },
     'Joey': {
-        'role': int(os.environ['JOEY_ROLE']),
+        'role': 926958113171603456,
         'spotifyid': None,
         'onrepeat': None,
         'repeatrewind': None,
     },
     'Kennedy': {
-        'role': int(os.environ['KENNEDY_ROLE']),
-        'spotifyid': None,
+        'role': 742208791004708984,
+        'spotifyid': '22x6phuiclyuuuqjalypbt74a',
         'onrepeat': None,
         'repeatrewind': None,
     },
     'Kevin': {
-        'role': int(os.environ['KEVIN_ROLE']),
+        'role': 923375312094519338,
         'spotifyid': None,
         'onrepeat': None,
         'repeatrewind': None,
     },
     'Logan': {
-        'role': int(os.environ['LOGAN_ROLE']),
+        'role': 740545339622293604,
         'spotifyid': 'q3tg252wqc5ntxe2fagbdtchu',
         'onrepeat': None,
         'repeatrewind': None,
     },
     'Mike': {
-        'role': int(os.environ['MIKE_ROLE']),
+        'role': 739842089579184269,
         'spotifyid': None,
         'onrepeat': None,
         'repeatrewind': None,
     },
     'Nick': {
-        'role': int(os.environ['NICK_ROLE']),
+        'role': 739842393481674783,
         'spotifyid': "fitterminator",
-        'onrepeat': "https://open.spotify.com/playlist/37i9dQZF1EpyPACl8m2SO3?si=x9uSl59LQMOB1HllMnu1bg",
-        'repeatrewind': 'https://open.spotify.com/playlist/37i9dQZF1EpCxNRIBP44gj?si=-Vr5hmKFRvyOXDXpMHQ0gQ',
+        'onrepeat': "37i9dQZF1EpyPACl8m2SO3",
+        'repeatrewind': '37i9dQZF1EpCxNRIBP44gj',
     },
     'Gick': {
-        'role': int(os.environ['NICKG_ROLE']),
+        'role': 887103144172068925,
         'spotifyid': "7a9uyyfrf5m61tft6anmx3csp",
         'onrepeat': None,
         'repeatrewind': None,
     },
     'Payton': {
-        'role': int(os.environ['PAYTON_ROLE']),
+        'role': 739842348980109402,
         'spotifyid': "nia8wdzes92kopprtw6mlj4xz",
-        'onrepeat': None,
-        'repeatrewind': None,
+        'onrepeat': '37i9dQZF1EpgD6ACJX1Y4k',
+        'repeatrewind': '37i9dQZF1EpUunxyPDyBAK',
     },
     'Vins': {
-        'role': int(os.environ['VINEETH_ROLE']),  # Use Vins instead reee
+        'role': 739841745508106322,  # Use Vins instead reee
         'spotifyid': "v9iqkldb8yaxvvifjqwhzijxx",
-        'onrepeat': "https://open.spotify.com/playlist/37i9dQZF1EpuLO8qSlx7VC?si=345dd2bf74a54ddc",
-        'repeatrewind': "https://open.spotify.com/playlist/37i9dQZF1EpGWwKBPqIySc?si=2dcc8959a521459a"
+        'onrepeat': "37i9dQZF1EpuLO8qSlx7VC",
+        'repeatrewind': "37i9dQZF1EpGWwKBPqIySc"
     },
     'Will': {
-        'role': int(os.environ['WILL_ROLE']),
+        'role': 918702896135151638,
         'spotifyid': None,
         'onrepeat': None,
         'repeatrewind': None,
@@ -203,12 +207,16 @@ dataDict = {
 
 
 # Get some data from the dataDict
-# - Acceptable "things" are:
-#  - 'role'
-#  - 'spotifyid'
-#  - 'onrepeat'
-#  - 'repeatrewind'
-def get_person_data(name, thing):
+def get_person_data(name: str, thing: str):
+    """ Gets whatever you need for someone in the server
+
+    Args:
+        - name: name of the user, e.g. 'Pragosh'
+        - thing: 'role', 'spotifyid', 'onrepeat', or 'repeatrewind'
+
+    Returns:
+        - str: string of requested ID or int value of Role ID
+    """
     return dataDict[name][thing]
 
 
@@ -217,7 +225,6 @@ def get_discordid_from_spotifyid(spot_id):
     for person in dataDict:
         role = person['role']
         spotifyid = person['spotifyid']
-
         if spotifyid == spot_id:
             return role
 
@@ -225,12 +232,15 @@ def get_discordid_from_spotifyid(spot_id):
 # Given a spotify ID, get the corresponding name
 def get_name_from_spotifyid(spot_id):
     for person in dataDict:
-        name = person['role']
+        name = person
         spotifyid = person['spotifyid']
-
         if spotifyid == spot_id:
             return name
 
 
-def get_TribeBlend_role():
-    return int(os.environ['TRIBEBLEND_ROLE'])
+def get_name_from_discordid(discid):
+    for person in dataDict:
+        name = person
+        discordid = person['role']
+        if discordid == discid:
+            return name

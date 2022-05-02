@@ -5,6 +5,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
 from .. import tokens as tokens
 import datetime
+import random
 
 
 class SpotifyPassives(commands.Cog):
@@ -36,11 +37,8 @@ class SpotifyPassives(commands.Cog):
                 if "Tribe Blend 2.0 has been updated!" in message.content:
                     return
                 else:
-                    update_TrBl2()
+                    self.update_TrBl2()
                     await music_chat.send(trbl_update_string)
-
-        # letting music channel know that the process is beginning
-        # await music_chat.send('Checking Spotify...')
 
         # Setting a scope for CAC flow
         # playlistscope = "playlist-read-collaborative"
@@ -48,55 +46,62 @@ class SpotifyPassives(commands.Cog):
         # sp_auth = spotipy.Spotify(
         #    auth_manager=SpotifyOAuth(scope=playlistscope))
 
-        # Get track information for Tribe Blend playlist via playlistID
-        tribe_blend = self.sp_client.playlist_tracks(
-            '4zJqkYjPGRSv2TLvISLp7x', fields=None, limit=100, offset=0, market='US')
-
-        # Manipulatable 2D list for necessary playlist info
-        blend_list = [['#'], ['Track Name'], ['Added By'], ['Added At']]
-        # Loop through entire playlist to look at each item's information
-        for idx, item in enumerate(tribe_blend['items']):
-            # Setting info of when track was added to playlist
-            added_at = item['added_at']
-            # Changing the added info into a datetime format
-            added_datetime = datetime.datetime.strptime(
-                added_at, '%Y-%m-%dT%H:%M:%SZ')
-            # Changing to EST
-            added_datetime = added_datetime - datetime.timedelta(hours=7)
-            # Setting an old date threshold for tracks added to playlist
-            old_date = datetime.datetime.now() - datetime.timedelta(weeks=4)
-
-            # If an added track is too old...
-            if added_datetime < old_date:
-                # Counting our number of tracks in playlist and adding to the list
-                blend_list[0].append(idx+1)
-                # Getting current track information
-                track = item['track']
-                # Adding the track name to our list
-                blend_list[1].append(track['name'])
-                # Getting information of user that added the track
-                added_by = item['added_by']
-                # Changing user's ID to a discord role ID and adding to list
-                blend_list[2].append(
-                    self.spotifyid_to_discordid(added_by['id']))
-                # Adding modified added info to list
-                blend_list[3].append(added_datetime)
-
-        # Creating a list to track users that we have already messaged
-        ping_list = []
-        # Looping through playlist info 2D list
-        for item in enumerate(blend_list[2]):
-            # Skipping over header entry
-            if item[1] == 'Added By':
-                continue
-            # Check that we have not already pinged this ID item
-            if item[1] not in (ping_list):
-                await music_chat.send(
-                    '<@&'+str(item[1])+'> You have stuff in Tribe Blend that is over 4 weeks old!!')
-            # Add this ID item to the list of users already messaged
-            ping_list.append(item[1])
-
     @tribe_blend_checkup.before_loop
     async def before_printer(self):
         # wait for bot to be online and ready before beginning Tribe Blend Task
         await self.bot.wait_until_ready()
+
+    def update_TrBl2(self):
+        scraped_songs = dict()
+        song_count = 0
+
+        # iterate through all the people we have
+        for person in tokens.dataDict:
+            # check that the person game me the links I've asked for 4 times and counting
+            if(tokens.get_person_data(person, 'onrepeat') is not None and tokens.get_person_data(person, 'repeatrewind') is not None):
+                # get the On Repeat playlist data dump
+                on_repeat = self.sp_client.playlist_items(
+                    tokens.get_person_data(person, 'onrepeat'), fields=None, limit=50, offset=0, market='US')
+                # randomly choose some track numbers to pick from OR
+                ORrands = [random.randint(0, 9), random.randint(
+                    10, 19), random.randint(20, 29)]
+                # iterate through the track list pulled from the playlist
+                for idx, item in enumerate(on_repeat['items']):
+                    # if this track is one of our randomly picked ones, lets save it
+                    if idx in ORrands:
+                        song_count += 1  # incrememnt our counter for the big dict
+                        track = item['track']
+                        # save some info about this track; we'll use this later
+                        track_info = {
+                            "Title": track['name'],
+                            "ID": track['id'],
+                            "Added By": str(person),
+                            "Pulled From": 'On Repeat'
+                        }
+                    # update the dictionary of the songs we're pulling
+                    scraped_songs.update({f"Track{song_count}": track_info})
+
+                # get the Repeat Rewind playlist data dump
+                repeat_rewind = self.sp_client.playlist_items(
+                    tokens.get_person_data(person, 'repeatrewind'), fields=None, limit=50, offset=0, market='US')
+                # randomly choose some track numbers to pick from RR
+                RRrands = [random.randint(0, 14), random.randint(15, 29)]
+                # iterate through the track list pulled from the playlist
+                for idx, item in enumerate(repeat_rewind['items']):
+                    # if this track is one of our randomly picked ones, lets save it
+                    if idx in RRrands:
+                        song_count += 1  # incrememnt our counter for the big dict
+                        track = item['track']
+                        # save some info about this track; we'll use this later
+                        track_info = {
+                            "Title": track['name'],
+                            "ID": track['id'],
+                            "Added By": str(person),
+                            "Pulled From": 'Repeat Rewind'
+                        }
+                    # update the dictionary of the songs we're pulling
+                    scraped_songs.update({f"Track {song_count}": track_info})
+
+        # get our scraped songs and put them into a playlist
+        self.sp_client.playlist_replace_items(
+            tokens.get_TribeBlend2_ID, (track['ID'] for track in scraped_songs))

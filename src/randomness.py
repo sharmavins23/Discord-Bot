@@ -1,5 +1,4 @@
 import random
-import discord
 from discord.ext import commands
 
 
@@ -17,7 +16,7 @@ class Randomness(commands.Cog):
         arbitrarilyHighNumber = 100_000
         if upper_bound > arbitrarilyHighNumber:
             await ctx.message.reply(
-                f"The upper bound is too high. Please stop being Ed and choose a reasonable number."
+                f"The upper bound is too high. Please stop being like Ed and choose a reasonable number."
             )
             return
 
