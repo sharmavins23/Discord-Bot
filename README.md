@@ -114,4 +114,4 @@ _Release date: February 16, 2022_
 - Merged in collaborator changes for RNG command
 - Cleaned up token/ID retrieval and handling
 
-_Release date: May 5, 2022_
+_Release date: May 1, 2022_
