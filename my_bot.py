@@ -92,4 +92,4 @@ async def bot_bio(context):
 
 
 # --- Run Time ---
-client.run(application_token)
+client.run(server_token)
