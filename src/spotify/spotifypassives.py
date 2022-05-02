@@ -35,7 +35,7 @@ class SpotifyPassives(commands.Cog):
         # self.sp_auth = spotipy.Spotify(
         #    auth_manager=SpotifyOAuth(scope=playlistscope))
 
-        trbl_update_string = f"<@&{tokens.get_TribeBlend_role}>, Tribe Blend 2.0 has been updated!"
+        trbl_update_string = f"<@&{tokens.get_TribeBlend_role()}>, Tribe Blend 2.0 has been updated!"
         # Grab relevant server channels used to send messages
         music_chat = self.bot.get_channel(tokens.get_music_tchat())
         async for message in music_chat.history(limit=1000, after=(datetime.datetime.now() - datetime.timedelta(weeks=1))):
@@ -79,7 +79,7 @@ class SpotifyPassives(commands.Cog):
                         }
                         # update the dictionary of the songs we're pulling
                         scraped_songs.update(
-                            {f"Track{song_count}": track_info})
+                            {f"Track {song_count}": track_info})
 
                 # get the Repeat Rewind playlist data dump
                 repeat_rewind = self.sp_client.playlist_items(
@@ -99,12 +99,13 @@ class SpotifyPassives(commands.Cog):
                             "Added By": str(person),
                             "Pulled From": 'Repeat Rewind'
                         }
-                    # update the dictionary of the songs we're pulling
-                    scraped_songs.update({f"Track {song_count}": track_info})
+                        # update the dictionary of the songs we're pulling
+                        scraped_songs.update(
+                            {f"Track {song_count}": track_info})
 
         # get our scraped songs and put them into a playlist
         # self.sp_client.playlist_replace_items(
-        #    tokens.get_TribeBlend2_ID, (track['ID'] for track in scraped_songs))
+        #    tokens.get_TribeBlend2_ID(), (track['ID'] for track in scraped_songs))
         # ^ this didn't work using the CC flow
 
         print(scraped_songs)

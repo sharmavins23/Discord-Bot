@@ -128,8 +128,8 @@ dataDict = {
     'Curtis': {
         'role': 739842049724907542,
         'spotifyid': "swegmaster089",
-        'onrepeat': None,
-        'repeatrewind': None,
+        'onrepeat': '37i9dQZF1EpmZMSJIctDsD',
+        'repeatrewind': '37i9dQZF1EpMg8wKIo1afC',
     },
     'Ed': {
         'role': 938256001847656498,
