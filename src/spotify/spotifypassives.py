@@ -32,7 +32,7 @@ class SpotifyPassives(commands.Cog):
         # Setting a scope for CAC flow
         playlistscope = "playlist-modify-public"
         # Get CAC authorized variable
-        self.sp_auth = spotipy.Spotify(
+        sp_auth = spotipy.Spotify(
             auth_manager=SpotifyOAuth(scope=playlistscope))
 
         trbl_update_string = f"<@&{tokens.get_TribeBlend_role()}>, Tribe Blend 2.0 has been updated!"
@@ -42,7 +42,7 @@ class SpotifyPassives(commands.Cog):
             if message.author == self.bot.user:
                 if "Tribe Blend 2.0 has been updated!" in message.content:
                     return
-        self.update_TrBl2()
+        self.update_TrBl2(sp_auth)
         await music_chat.send(trbl_update_string)
 
     @tribe_blend_checkup.before_loop
@@ -50,7 +50,7 @@ class SpotifyPassives(commands.Cog):
         # wait for bot to be online and ready before beginning Tribe Blend Task
         await self.bot.wait_until_ready()
 
-    def update_TrBl2(self):
+    def update_TrBl2(self, sp_auth):
         scraped_songs = dict()
         song_count = 0
 
@@ -59,7 +59,7 @@ class SpotifyPassives(commands.Cog):
             # check that the person game me the links I've asked for 4 times and counting
             if(tokens.get_person_data(person, 'onrepeat') is not None and tokens.get_person_data(person, 'repeatrewind') is not None):
                 # get the On Repeat playlist data dump
-                on_repeat = self.sp_auth.playlist_items(
+                on_repeat = self.sp_client.playlist_items(
                     tokens.get_person_data(person, 'onrepeat'), fields=None, limit=50, offset=0, market='US')
                 # randomly choose some track numbers to pick from OR
                 ORrands = [random.randint(0, 9), random.randint(
@@ -82,7 +82,7 @@ class SpotifyPassives(commands.Cog):
                             {f"Track {song_count}": track_info})
 
                 # get the Repeat Rewind playlist data dump
-                repeat_rewind = self.sp_auth.playlist_items(
+                repeat_rewind = self.sp_client.playlist_items(
                     tokens.get_person_data(person, 'repeatrewind'), fields=None, limit=50, offset=0, market='US')
                 # randomly choose some track numbers to pick from RR
                 RRrands = [random.randint(0, 14), random.randint(15, 29)]
@@ -104,7 +104,7 @@ class SpotifyPassives(commands.Cog):
                             {f"Track {song_count}": track_info})
 
         # get our scraped songs and put them into a playlist
-        self.sp_auth.playlist_replace_items(
+        sp_auth.playlist_replace_items(
             tokens.get_TribeBlend2_ID(), (track['ID'] for track in scraped_songs))
 
         print(scraped_songs)
