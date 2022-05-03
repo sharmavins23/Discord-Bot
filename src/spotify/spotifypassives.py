@@ -32,8 +32,8 @@ class SpotifyPassives(commands.Cog):
         # Setting a scope for CAC flow
         playlistscope = "playlist-modify-public"
         # Get CAC authorized variable
-        # self.sp_auth = spotipy.Spotify(
-        #    auth_manager=SpotifyOAuth(scope=playlistscope))
+        self.sp_auth = spotipy.Spotify(
+            auth_manager=SpotifyOAuth(scope=playlistscope))
 
         trbl_update_string = f"<@&{tokens.get_TribeBlend_role()}>, Tribe Blend 2.0 has been updated!"
         # Grab relevant server channels used to send messages
@@ -59,7 +59,7 @@ class SpotifyPassives(commands.Cog):
             # check that the person game me the links I've asked for 4 times and counting
             if(tokens.get_person_data(person, 'onrepeat') is not None and tokens.get_person_data(person, 'repeatrewind') is not None):
                 # get the On Repeat playlist data dump
-                on_repeat = self.sp_client.playlist_items(
+                on_repeat = self.sp_auth.playlist_items(
                     tokens.get_person_data(person, 'onrepeat'), fields=None, limit=50, offset=0, market='US')
                 # randomly choose some track numbers to pick from OR
                 ORrands = [random.randint(0, 9), random.randint(
@@ -82,7 +82,7 @@ class SpotifyPassives(commands.Cog):
                             {f"Track {song_count}": track_info})
 
                 # get the Repeat Rewind playlist data dump
-                repeat_rewind = self.sp_client.playlist_items(
+                repeat_rewind = self.sp_auth.playlist_items(
                     tokens.get_person_data(person, 'repeatrewind'), fields=None, limit=50, offset=0, market='US')
                 # randomly choose some track numbers to pick from RR
                 RRrands = [random.randint(0, 14), random.randint(15, 29)]
@@ -104,8 +104,7 @@ class SpotifyPassives(commands.Cog):
                             {f"Track {song_count}": track_info})
 
         # get our scraped songs and put them into a playlist
-        # self.sp_client.playlist_replace_items(
-        #    tokens.get_TribeBlend2_ID(), (track['ID'] for track in scraped_songs))
-        # ^ this didn't work using the CC flow
+        self.sp_auth.playlist_replace_items(
+            tokens.get_TribeBlend2_ID(), (track['ID'] for track in scraped_songs))
 
         print(scraped_songs)
