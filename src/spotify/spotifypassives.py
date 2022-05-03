@@ -32,7 +32,7 @@ class SpotifyPassives(commands.Cog):
         # Setting a scope for CAC flow
         playlistscope = "playlist-modify-public"
         # Get CAC authorized variable
-        sp_auth = spotipy.Spotify(
+        self.sp_auth = spotipy.Spotify(
             auth_manager=SpotifyOAuth(scope=playlistscope))
 
         trbl_update_string = f"<@&{tokens.get_TribeBlend_role()}>, Tribe Blend 2.0 has been updated!"
@@ -42,7 +42,7 @@ class SpotifyPassives(commands.Cog):
             if message.author == self.bot.user:
                 if "Tribe Blend 2.0 has been updated!" in message.content:
                     return
-        self.update_TrBl2(sp_auth)
+        self.update_TrBl2()
         await music_chat.send(trbl_update_string)
 
     @tribe_blend_checkup.before_loop
@@ -50,7 +50,7 @@ class SpotifyPassives(commands.Cog):
         # wait for bot to be online and ready before beginning Tribe Blend Task
         await self.bot.wait_until_ready()
 
-    def update_TrBl2(self, sp_auth):
+    def update_TrBl2(self):
         scraped_songs = dict()
         song_count = 0
 
@@ -104,7 +104,7 @@ class SpotifyPassives(commands.Cog):
                             {f"Track {song_count}": track_info})
 
         # get our scraped songs and put them into a playlist
-        sp_auth.playlist_replace_items(
-            tokens.get_TribeBlend2_ID(), (track['ID'] for track in scraped_songs))
+        self.sp_auth.playlist_replace_items(
+            tokens.get_TribeBlend2_ID(), [(track['ID'] for track in scraped_songs)])
 
         print(scraped_songs)

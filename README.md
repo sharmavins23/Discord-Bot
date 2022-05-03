@@ -121,3 +121,9 @@ _Release date: May 1, 2022_
 - Using Authorization Code Workflow to update playlist
 
 _Release date: May 1, 2022_
+
+**Version 1.5.1.1**
+
+- Edited environment vars to enable AC flow to work on deployed Heroku app
+
+_Release date: May 2, 2022_
