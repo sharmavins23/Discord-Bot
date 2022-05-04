@@ -73,7 +73,7 @@ class SpotifyPassives(commands.Cog):
                         # save some info about this track; we'll use this later
                         track_info = {
                             "Title": track['name'],
-                            "ID": track['ID'],
+                            "ID": track['id'],
                             "Added By": str(person),
                             "Pulled From": 'On Repeat'
                         }
