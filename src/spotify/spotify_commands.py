@@ -16,7 +16,7 @@ class SpotifyCommands(commands.Cog):
         if ctx.message.author.bot:  # don't want to take commands from any bots
             return
 
-        if ctx.message.author == 271732817740693505:
-            music_chat = self.bot.get_channel(tokens.get_music_tchat())
-            update_TrBl2()
-            await music_chat.send(f"<@&{tokens.get_TribeBlend_role()}>, Tribe Blend 2.0 has been updated!")
+        # if ctx.message.author == 271732817740693505:
+        music_chat = self.bot.get_channel(tokens.get_music_tchat())
+        update_TrBl2()
+        await music_chat.send(f"<@&{tokens.get_TribeBlend_role()}>, Tribe Blend 2.0 has been updated!")
