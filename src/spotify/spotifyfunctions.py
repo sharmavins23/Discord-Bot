@@ -72,8 +72,8 @@ def update_TrBl2():
     for track in scraped_songs:
         tracklist.append(scraped_songs[track]["ID"])
 
+    print(scraped_songs)
+
     # get our scraped songs and put them into a playlist
     sp_auth.playlist_add_items(
         tokens.get_TribeBlend2_ID(), tracklist, None)
-
-    print(scraped_songs)
