@@ -2,7 +2,7 @@
 # second idea: command to refresh just your own chunk of 5 songs in TB2.0
 # stretch of an idea: pull analytics of TB2.0
 from discord.ext import commands
-import spotifyfunctions as Sfunct
+from spotifyfunctions import update_TrBl2
 from .. import tokens as tokens
 
 
@@ -18,5 +18,5 @@ class SpotifyCommands(commands.Cog):
 
         if ctx.message.author == 271732817740693505:
             music_chat = self.bot.get_channel(tokens.get_music_tchat())
-            Sfunct.update_TrBl2()
+            update_TrBl2()
             await music_chat.send(f"<@&{tokens.get_TribeBlend_role()}>, Tribe Blend 2.0 has been updated!")

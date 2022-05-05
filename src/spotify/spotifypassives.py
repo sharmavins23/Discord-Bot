@@ -1,12 +1,9 @@
 import os
 import discord
 from discord.ext import commands, tasks
-import spotipy
-from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
 from .. import tokens as tokens
 import datetime
-import random
-import spotifyfunctions as Sfunct
+from spotifyfunctions import update_TrBl2
 
 
 class SpotifyPassives(commands.Cog):
@@ -36,7 +33,7 @@ class SpotifyPassives(commands.Cog):
             if "Tribe Blend 2.0 has been updated!" in message.content:
                 print('Time to exit')
                 return
-        Sfunct.tribe_blend2()
+        update_TrBl2()
         await music_chat.send(trbl_update_string)
 
     @tribe_blend_checkup.before_loop

@@ -6,7 +6,6 @@
 import os
 import discord
 from discord.ext import commands
-import spotipy
 from src.spotify.spotifypassives import SpotifyPassives
 from src.spotify.spotify_commands import SpotifyCommands
 import src.tokens as tokens
@@ -18,7 +17,7 @@ client = commands.Bot(
     help_command=None
 )
 client.add_cog(Randomness(client))
-client.add_cog(SpotifyPassives(client))
+# client.add_cog(SpotifyPassives(client))
 client.add_cog(SpotifyCommands(client))
 
 # Variables because calling stuff smaller stuff makes me a happy chappy
