@@ -41,6 +41,7 @@ class SpotifyPassives(commands.Cog):
         async for message in music_chat.history(limit=1000, after=(datetime.datetime.now() - datetime.timedelta(weeks=1))):
             if message.author == self.bot.user:
                 if "Tribe Blend 2.0 has been updated!" in message.content:
+                    print('Time to exit')
                     return
         self.update_TrBl2()
         await music_chat.send(trbl_update_string)
