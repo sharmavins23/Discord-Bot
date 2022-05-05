@@ -103,13 +103,8 @@ class SpotifyPassives(commands.Cog):
                         scraped_songs.update(
                             {f"Track {song_count}": track_info})
 
-        # make a list of all our songs
-        tracklist = []
-        for tr in scraped_songs:
-            tracklist.append(scraped_songs[tr]['ID'])
-
         # get our scraped songs and put them into a playlist
         self.sp_auth.playlist_replace_items(
-            tokens.get_TribeBlend2_ID(), tracklist)
+            tokens.get_TribeBlend2_ID(), [(track['ID'] for track in scraped_songs)])
 
         print(scraped_songs)
