@@ -105,7 +105,7 @@ class SpotifyPassives(commands.Cog):
 
         tracklist = list()
         for track in scraped_songs:
-            tracklist.append(track['ID'])
+            tracklist.append(scraped_songs[track]["ID"])
 
         # get our scraped songs and put them into a playlist
         self.sp_auth.playlist_replace_items(
