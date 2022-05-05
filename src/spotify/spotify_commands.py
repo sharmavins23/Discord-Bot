@@ -2,7 +2,7 @@
 # second idea: command to refresh just your own chunk of 5 songs in TB2.0
 # stretch of an idea: pull analytics of TB2.0
 from discord.ext import commands
-from spotifyfunctions import update_TrBl2
+from .spotifyfunctions import update_TrBl2
 from .. import tokens as tokens
 
 

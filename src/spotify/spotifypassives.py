@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands, tasks
 from .. import tokens as tokens
 import datetime
-from spotifyfunctions import update_TrBl2
+from .spotifyfunctions import update_TrBl2
 
 
 class SpotifyPassives(commands.Cog):
