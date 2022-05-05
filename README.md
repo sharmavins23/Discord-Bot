@@ -127,3 +127,9 @@ _Release date: May 1, 2022_
 - Edited environment vars to enable AC flow to work on deployed Heroku app
 
 _Release date: May 2, 2022_
+
+## Version 1.5.2
+
+- Splitting Spotify work into several files/functions
+
+_Release date: May 4, 2022_

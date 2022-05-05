@@ -8,6 +8,7 @@ import discord
 from discord.ext import commands
 import spotipy
 from src.spotify.spotifypassives import SpotifyPassives
+from src.spotify.spotify_commands import SpotifyCommands
 import src.tokens as tokens
 from src.randomness import Randomness
 
@@ -18,6 +19,7 @@ client = commands.Bot(
 )
 client.add_cog(Randomness(client))
 client.add_cog(SpotifyPassives(client))
+client.add_cog(SpotifyCommands(client))
 
 # Variables because calling stuff smaller stuff makes me a happy chappy
 server_token = tokens.get_application_token()
@@ -80,12 +82,12 @@ async def bot_bio(context):
     )
     bio_embed.add_field(
         name="Current Version",
-        value="v1.5",
+        value="v1.5.2",
         inline=True
     )
     bio_embed.add_field(
         name="Release Date",
-        value="May 1, 2022",
+        value="May 4, 2022",
         inline=True
     )
     await context.message.reply(embed=bio_embed)
