@@ -16,8 +16,6 @@ def update_TrBl2():
     sp_auth = spotipy.Spotify(
         auth_manager=SpotifyOAuth(scope=playlistscope))
 
-    if(sp_auth.va)
-
     scraped_songs = dict()
     song_count = 0
 
