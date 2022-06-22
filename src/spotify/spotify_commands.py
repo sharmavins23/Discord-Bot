@@ -3,7 +3,7 @@
 # stretch of an idea: pull analytics of TB2.0
 from discord.ext import commands
 from .spotifyfunctions import update_TrBl2
-from .. import tokens as tokens
+from .. import localtokens as localtokens
 
 
 class SpotifyCommands(commands.Cog):
@@ -17,6 +17,6 @@ class SpotifyCommands(commands.Cog):
             return
 
         if ctx.message.author == 271732817740693505:
-            music_chat = self.bot.get_channel(tokens.get_music_tchat())
+            music_chat = self.bot.get_channel(localtokens.get_music_tchat())
             update_TrBl2()
-            await music_chat.send(f"<@&{tokens.get_TribeBlend_role()}>, Tribe Blend 2.0 has been updated!")
+            await music_chat.send(f"<@&{localtokens.get_TribeBlend_role()}>, Tribe Blend 2.0 has been updated!")

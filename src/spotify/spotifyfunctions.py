@@ -1,5 +1,5 @@
 import random
-from .. import tokens as tokens
+from .. import localtokens as localtokens
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
 
@@ -20,12 +20,12 @@ def update_TrBl2():
     song_count = 0
 
     # iterate through all the people we have
-    for person in tokens.dataDict:
+    for person in localtokens.dataDict:
         # check that the person game me the links I've asked for 4 times and counting
-        if(tokens.get_person_data(person, 'onrepeat') is not None and tokens.get_person_data(person, 'repeatrewind') is not None):
+        if(localtokens.get_person_data(person, 'onrepeat') is not None and localtokens.get_person_data(person, 'repeatrewind') is not None):
             # get the On Repeat playlist data dump
             on_repeat = sp_client.playlist_items(
-                tokens.get_person_data(person, 'onrepeat'), fields=None, limit=50, offset=0, market='US')
+                localtokens.get_person_data(person, 'onrepeat'), fields=None, limit=50, offset=0, market='US')
             # randomly choose some track numbers to pick from OR
             ORrands = [random.randint(0, 9), random.randint(
                 10, 19), random.randint(20, 29)]
@@ -48,7 +48,7 @@ def update_TrBl2():
 
             # get the Repeat Rewind playlist data dump
             repeat_rewind = sp_client.playlist_items(
-                tokens.get_person_data(person, 'repeatrewind'), fields=None, limit=50, offset=0, market='US')
+                localtokens.get_person_data(person, 'repeatrewind'), fields=None, limit=50, offset=0, market='US')
             # randomly choose some track numbers to pick from RR
             RRrands = [random.randint(0, 14), random.randint(15, 29)]
             # iterate through the track list pulled from the playlist
@@ -74,6 +74,6 @@ def update_TrBl2():
 
     # get our scraped songs and put them into a playlist
     sp_auth.playlist_add_items(
-        tokens.get_TribeBlend2_ID(), tracklist, None)
+        localtokens.get_TribeBlend2_ID(), tracklist, None)
 
     print(scraped_songs)
