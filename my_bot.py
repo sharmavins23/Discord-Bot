@@ -8,7 +8,7 @@ import discord
 from discord.ext import commands
 from src.spotify.spotifypassives import SpotifyPassives
 from src.spotify.spotify_commands import SpotifyCommands
-import localtokens as localtokens
+import src.localtokens as localtokens
 from src.randomness import Randomness
 
 # Initialize bot

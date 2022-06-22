@@ -5,7 +5,8 @@ from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
 
 
 # Set authorization in CC flow
-auth_manager = SpotifyClientCredentials()
+auth_manager = SpotifyClientCredentials(client_id=localtokens.get_spotify_clientid(),
+                                        client_secret=localtokens.get_spotify_secretid())
 sp_client = spotipy.Spotify(auth_manager=auth_manager)
 
 
@@ -14,7 +15,10 @@ def update_TrBl2():
     playlistscope = "playlist-modify-public"
     # Get CAC authorized variable
     sp_auth = spotipy.Spotify(
-        auth_manager=SpotifyOAuth(scope=playlistscope))
+        auth_manager=SpotifyOAuth(client_id=localtokens.get_spotify_clientid(),
+                                  client_secret=localtokens.get_spotify_secretid(),
+                                  redirect_uri=localtokens.get_redirect_uri(),
+                                  scope=playlistscope))
 
     scraped_songs = dict()
     song_count = 0
@@ -73,7 +77,7 @@ def update_TrBl2():
         tracklist.append(scraped_songs[track]["ID"])
 
     # get our scraped songs and put them into a playlist
-    sp_auth.playlist_add_items(
-        localtokens.get_TribeBlend2_ID(), tracklist, None)
+    sp_auth.playlist_replace_items(
+        localtokens.get_TribeBlend2_ID(), tracklist)
 
     print(scraped_songs)
