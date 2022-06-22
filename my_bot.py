@@ -8,7 +8,7 @@ import discord
 from discord.ext import commands
 from src.spotify.spotifypassives import SpotifyPassives
 from src.spotify.spotify_commands import SpotifyCommands
-import src.tokens as tokens
+import localtokens as localtokens
 from src.randomness import Randomness
 
 # Initialize bot
@@ -21,14 +21,14 @@ client.add_cog(SpotifyPassives(client))
 client.add_cog(SpotifyCommands(client))
 
 # Variables because calling stuff smaller stuff makes me a happy chappy
-server_token = tokens.get_application_token()
+server_token = localtokens.get_application_token()
 
 
 # --- Work Time ---
 # Pragosh's startup sequence
 @client.event
 async def on_ready():
-    bot_chat = client.get_channel(tokens.get_bot_tchat())
+    bot_chat = client.get_channel(localtokens.get_bot_tchat())
     await bot_chat.send('I am Pragosh. And I am the Messiah')
 
 
