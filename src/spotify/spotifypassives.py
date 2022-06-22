@@ -13,7 +13,7 @@ class SpotifyPassives(commands.Cog):
         self.bot = bot
 
         # start up background tasks
-        # self.tribe_blend_checkup.start()
+        self.tribe_blend_checkup.start()
 
     # Convert spotify IDs to Discord role IDs
     def spotifyid_to_discordid(self, spot_id):
@@ -28,11 +28,9 @@ class SpotifyPassives(commands.Cog):
         trbl_update_string = f"<@&{tokens.get_TribeBlend_role()}>, Tribe Blend 2.0 has been updated!"
 
         for message in music_chat.history(limit=100, after=(datetime.datetime.now() - datetime.timedelta(weeks=1))):
-            print('We in the juice')
-        if message.author == self.bot.user:
-            if "Tribe Blend 2.0 has been updated!" in message.content:
-                print('Time to exit')
-                return
+            if message.author == self.bot.user:
+                if "Tribe Blend 2.0 has been updated!" in message.content:
+                    return
         update_TrBl2()
         await music_chat.send(trbl_update_string)
 
