@@ -10,13 +10,13 @@ class SpotifyCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    # Random color generator command
+    # Update Tribe Blend 2.0
     @commands.command(name="updateTB2")
     async def updateTB(self, ctx):
         if ctx.message.author.bot:  # don't want to take commands from any bots
             return
 
-        if ctx.message.author == 271732817740693505:
+        if ctx.message.author.id == localtokens.get_person_data('Curtis', 'id'):
             music_chat = self.bot.get_channel(localtokens.get_music_tchat())
             update_TrBl2()
             await music_chat.send(f"<@&{localtokens.get_TribeBlend_role()}>, Tribe Blend 2.0 has been updated!")

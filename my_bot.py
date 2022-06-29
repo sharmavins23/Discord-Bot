@@ -37,7 +37,8 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:  # don't want to check our own messages
         return
-    if message.author.id == 172002275412279296:  # instant replying to "Tatsu#8792"
+    # instant replying to "Tatsu#8792"
+    if message.author.id == localtokens.get_person_data('Tatsu', 'id'):
         context = await client.get_context(message)
         await context.message.reply("Please stop abusing your girlfriend")
     if "POG" in message.content.upper():  # instant reacting to messages with pog
