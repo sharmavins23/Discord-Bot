@@ -27,12 +27,12 @@ class SpotifyPassives(commands.Cog):
         music_chat = self.bot.get_channel(localtokens.get_music_tchat())
         trbl_update_string = f"<@&{localtokens.get_TribeBlend_role()}>, Tribe Blend 2.0 has been updated!"
 
-        # for message in music_chat.history(limit=100, after=(datetime.datetime.now() - datetime.timedelta(weeks=1))):
-        #    if message.author == self.bot.user:
-        #        if "Tribe Blend 2.0 has been updated!" in message.content:
-        #            return
+        async for message in music_chat.history(limit=100, after=(datetime.datetime.now() - datetime.timedelta(weeks=1))):
+            if message.author == self.bot.user:
+                if "Tribe Blend 2.0 has been updated!" in message.content:
+                    return
         update_TrBl2()
-        # await music_chat.send(trbl_update_string)
+        await music_chat.send(trbl_update_string)
 
     @tribe_blend_checkup.before_loop
     async def before_printer(self):
