@@ -10,11 +10,11 @@ def get_application_token():
 
 
 def get_spotify_clientid():
-    return os.environ['SPOTIFY_CLIENT']
+    return os.environ['SPOTIPY_CLIENT']
 
 
 def get_spotify_secretid():
-    return os.environ['SPOTIFY_SECRET']
+    return os.environ['SPOTIPY_SECRET']
 
 
 def get_redirect_uri():
