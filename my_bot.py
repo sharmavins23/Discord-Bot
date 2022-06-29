@@ -3,12 +3,11 @@
 # Don't copy this or I might cry
 
 # Imports because it's cool to have other stuff
-import os
 import discord
 from discord.ext import commands
 from src.spotify.spotifypassives import SpotifyPassives
 from src.spotify.spotify_commands import SpotifyCommands
-import src.localtokens as localtokens
+import src.tokens as tokens
 from src.randomness import Randomness
 
 # Initialize bot
@@ -21,14 +20,14 @@ client.add_cog(SpotifyPassives(client))
 client.add_cog(SpotifyCommands(client))
 
 # Variables because calling stuff smaller stuff makes me a happy chappy
-server_token = localtokens.get_application_token()
+server_token = tokens.get_application_token()
 
 
 # --- Work Time ---
 # Pragosh's startup sequence
 @client.event
 async def on_ready():
-    bot_chat = client.get_channel(localtokens.get_bot_tchat())
+    bot_chat = client.get_channel(tokens.get_bot_tchat())
     await bot_chat.send('I am Pragosh. And I am the Messiah')
 
 
@@ -38,7 +37,7 @@ async def on_message(message):
     if message.author == client.user:  # don't want to check our own messages
         return
     # instant replying to "Tatsu#8792"
-    if message.author.id == localtokens.get_person_data('Tatsu', 'id'):
+    if message.author.id == tokens.get_person_data('Tatsu', 'id'):
         context = await client.get_context(message)
         await context.message.reply("Please stop abusing your girlfriend")
     if "POG" in message.content.upper():  # instant reacting to messages with pog
@@ -85,12 +84,12 @@ async def bot_bio(context):
     )
     bio_embed.add_field(
         name="Current Version",
-        value="v1.5.2",
+        value="v1.5.3",
         inline=True
     )
     bio_embed.add_field(
         name="Release Date",
-        value="May 4, 2022",
+        value="June 28, 2022",
         inline=True
     )
     await context.message.reply(embed=bio_embed)

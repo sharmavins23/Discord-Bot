@@ -137,6 +137,6 @@ _Release date: May 4, 2022_
 ## Version 1.5.3
 
 - Spotify update command is functional
-- Chnaged person data dictionary in tokens file
+- Changed person data dictionary in tokens file
 
 _Release date: June 28, 2022_

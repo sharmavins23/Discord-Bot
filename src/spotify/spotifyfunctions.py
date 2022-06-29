@@ -1,12 +1,12 @@
 import random
-from .. import localtokens as localtokens
+from .. import tokens as tokens
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
 
 
 # Set authorization in CC flow
-auth_manager = SpotifyClientCredentials(client_id=localtokens.get_spotify_clientid(),
-                                        client_secret=localtokens.get_spotify_secretid())
+auth_manager = SpotifyClientCredentials(client_id=tokens.get_spotify_clientid(),
+                                        client_secret=tokens.get_spotify_secretid())
 sp_client = spotipy.Spotify(auth_manager=auth_manager)
 
 
@@ -15,21 +15,21 @@ def update_TrBl2():
     playlistscope = "playlist-modify-public"
     # Get CAC authorized variable
     sp_auth = spotipy.Spotify(
-        auth_manager=SpotifyOAuth(client_id=localtokens.get_spotify_clientid(),
-                                  client_secret=localtokens.get_spotify_secretid(),
-                                  redirect_uri=localtokens.get_redirect_uri(),
+        auth_manager=SpotifyOAuth(client_id=tokens.get_spotify_clientid(),
+                                  client_secret=tokens.get_spotify_secretid(),
+                                  redirect_uri=tokens.get_redirect_uri(),
                                   scope=playlistscope))
 
     scraped_songs = dict()
     song_count = 0
 
     # iterate through all the people we have
-    for person in localtokens.dataDict:
+    for person in tokens.dataDict:
         # check that the person game me the links I've asked for 4 times and counting
-        if(localtokens.get_person_data(person, 'onrepeat') is not None and localtokens.get_person_data(person, 'repeatrewind') is not None):
+        if(tokens.get_person_data(person, 'onrepeat') is not None and tokens.get_person_data(person, 'repeatrewind') is not None):
             # get the On Repeat playlist data dump
             on_repeat = sp_client.playlist_items(
-                localtokens.get_person_data(person, 'onrepeat'), fields=None, limit=50, offset=0, market='US')
+                tokens.get_person_data(person, 'onrepeat'), fields=None, limit=50, offset=0, market='US')
             # randomly choose some track numbers to pick from OR
             ORrands = [random.randint(0, 9), random.randint(
                 10, 19), random.randint(20, 29)]
@@ -52,7 +52,7 @@ def update_TrBl2():
 
             # get the Repeat Rewind playlist data dump
             repeat_rewind = sp_client.playlist_items(
-                localtokens.get_person_data(person, 'repeatrewind'), fields=None, limit=50, offset=0, market='US')
+                tokens.get_person_data(person, 'repeatrewind'), fields=None, limit=50, offset=0, market='US')
             # randomly choose some track numbers to pick from RR
             RRrands = [random.randint(0, 14), random.randint(15, 29)]
             # iterate through the track list pulled from the playlist
@@ -78,6 +78,6 @@ def update_TrBl2():
 
     # get our scraped songs and put them into a playlist
     sp_auth.playlist_replace_items(
-        localtokens.get_TribeBlend2_ID(), tracklist)
+        tokens.get_TribeBlend2_ID(), tracklist)
 
     print(scraped_songs)
