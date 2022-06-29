@@ -116,8 +116,8 @@ dataDict = {
         'id': 272072843917787148,
         'role': 739842298174767256,
         'spotifyid': 'ht68kx83oyis801h03x3iqa59',
-        'onrepeat': None,
-        'repeatrewind': None,
+        'onrepeat': '37i9dQZF1EphTASg1unLVv',
+        'repeatrewind': '37i9dQZF1EpDCsWLnTtdT7',
     },
     'Curtbot': {
         'id': 796485108588216380,
