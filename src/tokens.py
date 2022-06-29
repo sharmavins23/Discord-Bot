@@ -10,15 +10,15 @@ def get_application_token():
 
 
 def get_spotify_clientid():
-    return os.environ['SPOTIPY_CLIENT']
+    return os.environ['SPOTIPY_CLIENT_ID']
 
 
 def get_spotify_secretid():
-    return os.environ['SPOTIPY_SECRET']
+    return os.environ['SPOTIPY_CLIENT_SECRET']
 
 
 def get_redirect_uri():
-    return os.environ['REDIRECT_URI']
+    return os.environ['SPOTIPY_REDIRECT_URI']
 
 
 def get_gen_tchat():
