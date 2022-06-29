@@ -133,3 +133,10 @@ _Release date: May 2, 2022_
 - Splitting Spotify work into several files/functions
 
 _Release date: May 4, 2022_
+
+## Version 1.5.3
+
+- Spotify update command is functional
+- Chnaged person data dictionary in tokens file
+
+_Release date: June 28, 2022_
