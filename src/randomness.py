@@ -1,5 +1,6 @@
 import random
 from discord.ext import commands
+import discord
 
 
 class Randomness(commands.Cog):
@@ -12,23 +13,31 @@ class Randomness(commands.Cog):
         if ctx.message.author.bot:  # don't want to take commands from any bots
             return
 
-        # Bounds checks on random numbers
-        arbitrarilyHighNumber = 100_000
-        if upper_bound > arbitrarilyHighNumber:
-            await ctx.message.reply(
-                f"The upper bound is too high. Please stop being like Ed and choose a reasonable number."
-            )
-            return
+        lower_bound = int(lower_bound)
+        upper_bound = int(upper_bound)
 
-        random_numbers_str = ''
-        if count == 0:
-            count = 1
-        while count > 0:
-            number = random.randint(lower_bound, upper_bound)
-            random_numbers_str = random_numbers_str + str(number) + ', '
-            count -= 1
-        random_numbers_str = random_numbers_str[:-2]
-        await ctx.message.reply("Your random number(s): " + random_numbers_str)
+        if lower_bound <= 0:
+            await ctx.message.reply("I'm a positive guy. I don't do negatives.")
+        else:
+            if upper_bound == lower_bound:
+                await ctx.message.reply("Are you dumb or are you trolling??")
+            elif upper_bound < lower_bound:
+                await ctx.message.reply("Your bounds are out of whack, son.")
+            else:
+                if upper_bound > 1_000_000:
+                    await ctx.message.reply("I only go to 1 million bc I'm smol brain.")
+                else:
+                    random_numbers_str = ''
+                    if count == 0:
+                        count = 1
+                    while count > 0:
+                        number = random.randint(lower_bound, upper_bound)
+                        random_numbers_str = random_numbers_str + \
+                            str(number) + ', '
+                        count -= 1
+                    random_numbers_str = random_numbers_str[:-2]
+                    await ctx.message.reply(f"Your random number(s): {random_numbers_str}")
+        return
 
     # Coin Flip Command
     @commands.command(name="coinflip")
@@ -45,7 +54,7 @@ class Randomness(commands.Cog):
     # Random color command
     @commands.command(name="randomcolor")
     async def rand_color(self, ctx):
-        if ctx.message.author.bot:  # don't take no commands from no robo-bots
+        if ctx.message.author.bot:  # don't want to take commands from any bots
             return
 
         # Generate a random color
@@ -59,8 +68,12 @@ class Randomness(commands.Cog):
         b_hex = str(hex(b)).replace('0x', '').zfill(2)
 
         # Concatenate the hex values together
-        color_hex = '#' + r_hex + g_hex + b_hex
+        color_hex = (r_hex + g_hex + b_hex).upper()
 
-        await ctx.message.reply(
-            f"View your random color here: https://color.aurlien.net/{color_hex}"
+        color_embed = discord.Embed(
+            color=discord.Color.from_rgb(r, g, b),
         )
+        color_embed.set_image(
+            url=f"https://dummyimage.com/420x69/{color_hex}/&text=%23{color_hex}")
+
+        await ctx.message.reply(embed=color_embed)

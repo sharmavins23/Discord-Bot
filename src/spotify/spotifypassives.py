@@ -1,9 +1,7 @@
-import os
-import discord
 from discord.ext import commands, tasks
 from .. import localtokens as localtokens
 import datetime
-from .spotifyfunctions import update_TrBl2
+from .spotifyfunctions import update_TrBl2, output_playlist_info
 
 
 class SpotifyPassives(commands.Cog):

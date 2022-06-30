@@ -2,7 +2,7 @@
 
 The following is a printed overview of bot changes and release functionality.
 
-**Current version: [v1.5.3](#version-153)**
+**Current version: [v1.5.4](#version-154)**
 
 # Version 1
 
@@ -137,6 +137,14 @@ _Release date: May 4, 2022_
 ## Version 1.5.3
 
 - Spotify update command is functional
-- Chnaged person data dictionary in tokens file
+- Changed person data dictionary in tokens file
 
 _Release date: June 28, 2022_
+
+## Version 1.5.4
+
+- Adjusting random song selection to compensate for various playlist sizes
+- Better fool-proofed the random number command to be resilient to bad inputs
+- Changed random color command to reply with an embed and image
+
+_Release date: June 30, 2022_

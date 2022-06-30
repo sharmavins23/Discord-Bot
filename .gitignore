@@ -1,6 +1,6 @@
 __pycache__
 .vscode/settings.json
 .cache
-track_breakdown.py
+playlist_output
 heroku_cmds.txt
 src/localtokens.py
