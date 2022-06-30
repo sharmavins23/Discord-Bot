@@ -1,7 +1,7 @@
 from discord.ext import commands, tasks
 from .. import tokens as tokens
 import datetime
-from .spotifyfunctions import update_TrBl2
+from .spotifyfunctions import update_TrBl2, output_playlist_info
 
 
 class SpotifyPassives(commands.Cog):

@@ -53,14 +53,16 @@ async def on_message(message):
 async def command_help(context, command=None):
     if context.message.author.bot:  # don't want to take commands from any bots
         return
-    if command == None:
-        help_message = 'List of current commands: \nbio \nrandomnumber \ncoinflip \n\nFor further help, type \'Pragosh, help `command`\''
+    if command is None:
+        help_message = 'List of current commands: \nbio \nrandomnumber \ncoinflip \nrandomcolor \n\nFor further help, type \'Pragosh, help `command`\''
     elif command == "bio":
         help_message = 'The bio command returns information about the currently released version of the bot'
     elif command == "randomnumber":
-        help_message = 'To use the random number function, type \'Pragosh, randomnumber `starting integer` `ending integer` `count`\'\n\nNote: The count of generated numbers is optional. The default is 1'
+        help_message = 'To use the random number command, type \'Pragosh, randomnumber `starting integer` `ending integer` `count`\'\n\nNote: The count of generated numbers is optional. The default is 1'
     elif command == "coinflip":
         help_message = 'The coin flip command returns a randomly flipped coin featuring the immortal Queen Elizabeth'
+    elif command == "randomcolor":
+        help_message = 'The random color command returns a random color with the hex code'
 
     await context.message.reply(help_message)
 
@@ -84,12 +86,12 @@ async def bot_bio(context):
     )
     bio_embed.add_field(
         name="Current Version",
-        value="v1.5.3",
+        value="v1.5.4",
         inline=True
     )
     bio_embed.add_field(
         name="Release Date",
-        value="June 28, 2022",
+        value="June 30, 2022",
         inline=True
     )
     await context.message.reply(embed=bio_embed)
