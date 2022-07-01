@@ -95,8 +95,8 @@ dataDict = {
         'id': 230889641073573889,
         'role': 739842129655758969,
         'spotifyid': 'totalpwnage15',
-        'onrepeat': None,
-        'repeatrewind': None,
+        'onrepeat': '37i9dQZF1Eph16PLUtoJ2N',
+        'repeatrewind': '37i9dQZF1EpHW4SiooJKLj',
     },
     'Austin': {
         'id': 164299666714918912,
