@@ -81,8 +81,8 @@ dataDict = {
         'id': 426825197866450975,
         'role': 739842006263791688,
         'spotifyid': "asterkool",
-        'onrepeat': None,
-        'repeatrewind': None,
+        'onrepeat': '37i9dQZF1EprcA2aKeFg1F',
+        'repeatrewind': '37i9dQZF1EpNCOTokmqvZd',
     },
     'Anand': {
         'id': 526161609572483072,
