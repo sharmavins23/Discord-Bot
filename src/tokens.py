@@ -172,8 +172,8 @@ dataDict = {
         'id': 328330822962905088,
         'role': 740545339622293604,
         'spotifyid': 'q3tg252wqc5ntxe2fagbdtchu',
-        'onrepeat': None,
-        'repeatrewind': None,
+        'onrepeat': '37i9dQZF1EpoNXfvyxK7HG',
+        'repeatrewind': '37i9dQZF1EpHIChtwK4I34',
     },
     'Mike': {
         'id': 218064586929209345,
