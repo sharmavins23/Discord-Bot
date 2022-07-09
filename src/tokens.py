@@ -109,8 +109,8 @@ dataDict = {
         'id': 268830174416470017,
         'role': 923375385931034624,
         'spotifyid': "benjaminlight132",
-        'onrepeat': None,
-        'repeatrewind': None,
+        'onrepeat': '37i9dQZF1EphtOIhHQlGQm',
+        'repeatrewind': '37i9dQZF1EpMoOVUkl5NHm',
     },
     'Brindle': {
         'id': 272072843917787148,
