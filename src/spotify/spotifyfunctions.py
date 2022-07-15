@@ -64,7 +64,7 @@ def update_TrBl2():
             divisor = playlist_size//2
             # randomly choose some track numbers to pick from RR
             RRrands = [random.randint(0, divisor-1),
-                       random.randint(divisor, playlist_size)]
+                       random.randint(divisor, playlist_size-1)]
             # iterate through the track list pulled from the playlist
             for idx, item in enumerate(repeat_rewind['items']):
                 # if this track is one of our randomly picked ones, lets save it
