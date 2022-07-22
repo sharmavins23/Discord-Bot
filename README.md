@@ -155,3 +155,9 @@ _Release date: June 30, 2022_
 - Used feature to return the top 5 artists in a playlist
 
 _Release date: July 21, 2022_
+
+**Version 1.5.5.1**
+
+- Modifying help command for topartists command
+
+_Release date: July 21, 2022_
