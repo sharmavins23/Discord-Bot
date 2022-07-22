@@ -92,12 +92,67 @@ def update_TrBl2():
 
     print(scraped_songs)
 
+
+def count_playlist_artists(playlistID):
+    # get the playlist items
+    playlist = sp_client.playlist_items(playlistID, limit=100)
+    playlistSize = playlist["total"]
+    # Starting empty dictionary to hold what I want
+    artistCountDict = {}
+
+    loopcount = 0
+    while playlistSize > 0:
+        playlist = sp_client.playlist_items(
+            playlistID, limit=100, offset=100*loopcount)
+        # For every single item (song) in the playlist
+        for item in playlist["items"]:
+            # Hold the track dictionary
+            track = item["track"]
+            # For every artist listed in the track, pull the details
+            for artist in track["artists"]:
+                artistName = artist["name"]
+                artistID = artist["id"]
+
+                # If the artist doesn't exist, add it
+                if artistID not in artistCountDict:
+                    artistCountDict[artistID] = {
+                        "artistName": artistName,
+                        "count": 1
+                    }
+                else:
+                    artistCountDict[artistID]["count"] += 1
+        loopcount += 1
+        playlistSize -= 100
+
+    # Sort the final dictionary to make it easier to find the max
+    return sort_artist_dict(artistCountDict)
+
+
+def sort_artist_dict(artistDict):
+    # Given the dictionary...
+    sortedDict = sorted(
+        artistDict.items(),
+        # Sorting by count
+        key=lambda x: x[1]["count"],
+        # Descending order
+        reverse=True
+    )
+    return sortedDict
+
+
+def get_playlist_name(playlistID):
+    playlist = sp_client.playlist(playlistID)
+    return playlist["name"]
+
+
 # this function is not used. it is simply for testing purposes
-
-
 def output_playlist_info():
     # change the spotipy method here to test object output
     tribeblend = sp_client.playlist_items(localtokens.get_TribeBlend2_ID())
     # print results to a formatted file for viewing. (file is gitignored)
-    with open('playlist_output', 'w') as playlist_output:
+    with open('playlist_items_output', 'w') as playlist_output:
         json.dump(tribeblend, playlist_output, indent=4, sort_keys=True)
+    tribeback = sp_client.playlist(localtokens.get_TribeBlend2_ID())
+    # print results to a formatted file for viewing. (file is gitignored)
+    with open('playlist_output', 'w') as playlist_output:
+        json.dump(tribeback, playlist_output, indent=4, sort_keys=True)
