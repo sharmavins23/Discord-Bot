@@ -148,3 +148,10 @@ _Release date: June 28, 2022_
 - Changed random color command to reply with an embed and image
 
 _Release date: June 30, 2022_
+
+## Version 1.5.5
+
+- Adding feature to count the artists in a playlist
+- Used feature to return the top 5 artists in a playlist
+
+_Release date: July 21, 2022_
