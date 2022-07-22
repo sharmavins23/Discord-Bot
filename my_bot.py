@@ -72,9 +72,8 @@ async def command_help(context, command=None):
         help_message = 'The random color command returns a random color with the hex code'
     elif command == "topartists":
         help_message = 'This command provides you with the top 5 most common artists in a playlist \
-                        \nTo use this command, type: \'Pragosh, topartists `playlistID`\' \
-                        \nThe playlistID is found in the playlist\'s link right before the `?` \
-                        \nFor example: `0fyr74e0hLjFJ3778Vw0SZ` is the ID for open.spotify.com/playlist/**0fyr74e0hLjFJ3778Vw0SZ**?si=57694e0acd3f45b4'
+                        \nTo use this command, type: \'Pragosh, topartists `playlist link`\' \
+                        \nFor example: \'Pragosh, topartists https://open.spotify.com/playlist/0fyr74e0hLjFJ3778Vw0SZ?si=0824b597bf5d4182\''
 
     await context.message.reply(help_message)
 
@@ -98,7 +97,7 @@ async def bot_bio(context):
     )
     bio_embed.add_field(
         name="Current Version",
-        value="v1.5.5",
+        value="v1.5.5.1",
         inline=True
     )
     bio_embed.add_field(
