@@ -19,18 +19,18 @@ class SpotifyPassives(commands.Cog):
         return tokens.get_discordid_from_spotifyid(spot_id)
 
     # Pragosh's background behavior
-    @tasks.loop(hours=(24*7))  # running loop every 7 days
+    @tasks.loop(hours=24)  # running loop every 7 days
     async def tribe_blend_checkup(self):
         # Grab relevant server channels used to send messages
-        music_chat = self.bot.get_channel(tokens.get_music_tchat())
-        trbl_update_string = f"<@&{tokens.get_TribeBlend_role()}>, Tribe Blend 2.0 has been updated!"
+        bot_chat = tokens.get_bot_tchat()
+        trbl_update_string = "Tribe Blend 2.0 has been updated!"
 
-        async for message in music_chat.history(limit=100, after=(datetime.datetime.now() - datetime.timedelta(weeks=1))):
+        async for message in bot_chat.history(limit=100, after=(datetime.datetime.now() - datetime.timedelta(weeks=1))):
             if message.author == self.bot.user:
                 if "Tribe Blend 2.0 has been updated!" in message.content:
                     return
         update_TrBl2()
-        await music_chat.send(trbl_update_string)
+        await bot_chat.send(trbl_update_string)
 
     @tribe_blend_checkup.before_loop
     async def before_printer(self):
