@@ -16,9 +16,12 @@ class SpotifyCommands(commands.Cog):
         if ctx.message.author.bot:  # don't want to take commands from any bots
             return
 
+        # Only the creator of Pragosh has the authority for this command
         if ctx.message.author.id == localtokens.get_person_data('Curtis', 'id'):
             music_chat = self.bot.get_channel(localtokens.get_music_tchat())
+            # Update the playlist
             spfunct.update_TrBl2()
+            # Let everybody know (only for these manual updates)
             await music_chat.send(f"<@&{localtokens.get_TribeBlend_role()}>, Tribe Blend 2.0 has been updated!")
 
     @commands.command(name="topartists")
@@ -26,12 +29,16 @@ class SpotifyCommands(commands.Cog):
         if ctx.message.author.bot:  # don't want to take commands from any bots
             return
 
+        # Get our artist dictionary
         artistDict = spfunct.count_playlist_artists(str(playlistID))
+        # Begin creating our output string
         outputstring = f"The top 5 songs in {spfunct.get_playlist_name(playlistID)}:"
+        # Let's check out the top 5 artists
         for i in range(5):
             artist = artistDict[i][1]
             name = artist['artistName']
             count = artist['count']
+            # Add our contents to the output string
             outputstring = outputstring+f"\n{i+1}: {name} with {count} songs"
-
+        # Send the output string
         await ctx.message.reply(outputstring)

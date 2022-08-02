@@ -2,7 +2,7 @@
 
 The following is a printed overview of bot changes and release functionality.
 
-**Current version: [v1.5.4](#version-154)**
+**Current version: [v1.5.6](#version-156)**
 
 # Version 1
 
@@ -161,3 +161,11 @@ _Release date: July 21, 2022_
 - Modifying help command for topartists command
 
 _Release date: July 21, 2022_
+
+## Version 1.6
+
+- Correctly implementing Spotify OAuth to function on Heroku
+- Changed update of Tribe Blend 2.0 to every 24 hours
+- Removed notification of Tribe Blend 2.0 updating
+
+_Release date: August 1, 2022_
