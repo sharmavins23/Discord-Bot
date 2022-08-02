@@ -3,6 +3,32 @@ from .. import tokens as tokens
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
 import json
+import os
+
+
+class BotCacheHandler(spotipy.CacheHandler):
+    """
+    Handles reading and writing cached Spotify authorization tokens
+    as json values in environment variable.
+    """
+
+    def __init__(self):
+        self.env_var = os.environ['SPOTIPY_AUTH_CACHE']
+
+    def get_cached_token(self):
+        token_info = None
+        try:
+            token_info = self.env_var
+        except:
+            print('Cached token not found')
+
+        return token_info
+
+    def save_token_to_cache(self, token_info):
+        try:
+            self.env_var = token_info
+        except:
+            print('Could not write token to cache')
 
 
 # Set authorization in CC flow
@@ -19,7 +45,8 @@ def update_TrBl2():
         auth_manager=SpotifyOAuth(client_id=tokens.get_spotify_clientid(),
                                   client_secret=tokens.get_spotify_secretid(),
                                   redirect_uri=tokens.get_redirect_uri(),
-                                  scope=playlistscope))
+                                  scope=playlistscope,
+                                  cache_handler=BotCacheHandler))
 
     scraped_songs = dict()
     song_count = 0
