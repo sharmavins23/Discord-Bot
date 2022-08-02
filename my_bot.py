@@ -16,7 +16,7 @@ client = commands.Bot(
     help_command=None
 )
 client.add_cog(Randomness(client))
-# client.add_cog(SpotifyPassives(client))
+client.add_cog(SpotifyPassives(client))
 client.add_cog(SpotifyCommands(client))
 
 # Variables because calling stuff smaller stuff makes me a happy chappy
