@@ -18,7 +18,7 @@ class BotCacheHandler(spotipy.CacheHandler):
     def get_cached_token(self):
         token_info = None
         try:
-            token_info = self.env_var
+            token_info = json.loads(self.env_var)
         except:
             print('Cached token not found')
 
@@ -26,7 +26,7 @@ class BotCacheHandler(spotipy.CacheHandler):
 
     def save_token_to_cache(self, token_info):
         try:
-            self.env_var = token_info
+            self.env_var = json.dumps(token_info)
         except:
             print('Could not write token to cache')
 
