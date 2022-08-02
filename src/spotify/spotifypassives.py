@@ -22,7 +22,7 @@ class SpotifyPassives(commands.Cog):
     @tasks.loop(hours=24)  # running loop every 7 days
     async def tribe_blend_checkup(self):
         # Grab relevant server channels used to send messages
-        bot_chat = tokens.get_bot_tchat()
+        bot_chat = self.bot.get_channel(tokens.get_bot_tchat())
         trbl_update_string = "Tribe Blend 2.0 has been updated!"
 
         async for message in bot_chat.history(limit=100, after=(datetime.datetime.now() - datetime.timedelta(weeks=1))):
