@@ -2,6 +2,7 @@ from discord.ext import commands, tasks
 from .. import tokens as tokens
 import datetime
 from .spotifyfunctions import update_TrBl2, output_playlist_info
+import spotipy.oauth2
 
 
 class SpotifyPassives(commands.Cog):
@@ -19,16 +20,17 @@ class SpotifyPassives(commands.Cog):
         return tokens.get_discordid_from_spotifyid(spot_id)
 
     # Pragosh's background behavior
-    @tasks.loop(hours=2)  # running loop every 7 days
+    @tasks.loop(minutes=3)  # running loop every 7 days
     async def tribe_blend_checkup(self):
         # Grab relevant server channels used to send messages
         bot_chat = self.bot.get_channel(tokens.get_bot_tchat())
         trbl_update_string = "Tribe Blend 2.0 has been updated!"
+        spotipy.oauth2.SpotifyOAuth.refresh_access_token()
 
-        async for message in bot_chat.history(limit=100, after=(datetime.datetime.now() - datetime.timedelta(weeks=1))):
-            if message.author == self.bot.user:
-                if "Tribe Blend 2.0 has been updated!" in message.content:
-                    return
+        # async for message in bot_chat.history(limit=100, after=(datetime.datetime.now() - datetime.timedelta(weeks=1))):
+        #    if message.author == self.bot.user:
+        #        if "Tribe Blend 2.0 has been updated!" in message.content:
+        #            return
         update_TrBl2()
         await bot_chat.send(trbl_update_string)
 
