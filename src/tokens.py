@@ -1,8 +1,11 @@
 # Pulling all environment config variables from Heroku
 import os
+import psycopg2
 
 
 # ===== Constants (Environment variables/Chat config) ==========================
+def get_database_url():
+    return os.environ['DATABASE_URL']
 
 
 def get_application_token():
@@ -73,9 +76,14 @@ def get_TribeBlend2_ID():
     return '2JML26sLyhDe3LWjJMjMl5'
 
 
+db_conn = psycopg2.connect(get_database_url(), sslmode='require')
+
+
+def get_db_conn():
+    return db_conn
+
+
 # ===== Person-specific data ===================================================
-
-
 dataDict = {
     'Adam': {
         'id': 426825197866450975,

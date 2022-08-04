@@ -5,3 +5,4 @@ playlist_output
 heroku_cmds.txt
 src/localtokens.py
 playlist_items_output
+src/create_tables.py
