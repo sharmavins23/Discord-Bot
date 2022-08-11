@@ -1,6 +1,5 @@
 # Pulling all environment config variables from Heroku
 import os
-import psycopg2
 
 
 # ===== Constants (Environment variables/Chat config) ==========================
@@ -76,13 +75,6 @@ def get_TribeBlend2_ID():
     return '2JML26sLyhDe3LWjJMjMl5'
 
 
-db_conn = psycopg2.connect(get_database_url(), sslmode='require')
-
-
-def get_db_conn():
-    return db_conn
-
-
 # ===== Person-specific data ===================================================
 dataDict = {
     'Adam': {
@@ -110,7 +102,7 @@ dataDict = {
         'id': 164299666714918912,
         'role': 746615079755055186,
         'spotifyid': "31s5eguzeenufwdbys5rtex4e3ay",
-        'onrepeat': None,
+        'onrepeat': '37i9dQZF1EptBfPvelQzcp',
         'repeatrewind': None,
     },
     'Ben': {
@@ -126,13 +118,6 @@ dataDict = {
         'spotifyid': 'ht68kx83oyis801h03x3iqa59',
         'onrepeat': '37i9dQZF1EphTASg1unLVv',
         'repeatrewind': '37i9dQZF1EpDCsWLnTtdT7',
-    },
-    'Curtbot': {
-        'id': 796485108588216380,
-        'role': 883740669020106812,
-        'spotifyid': 'mlgcongress',
-        'onrepeat': None,
-        'repeatrewind': None,
     },
     'Curtis': {
         'id': 271732817740693505,
@@ -166,8 +151,8 @@ dataDict = {
         'id': 329813627307687936,
         'role': 742208791004708984,
         'spotifyid': '22x6phuiclyuuuqjalypbt74a',
-        'onrepeat': None,
-        'repeatrewind': None,
+        'onrepeat': '37i9dQZF1EpiELg1ftzNgh',
+        'repeatrewind': '37i9dQZF1EpJ5FSmj5o2Mr',
     },
     'Kevin': {
         'id': 323888373662220298,
@@ -229,6 +214,20 @@ dataDict = {
         'id': 122489106818138113,
         'role': 918702896135151638,
         'spotifyid': None,
+        'onrepeat': None,
+        'repeatrewind': None,
+    },
+    'Pragosh': {
+        'id': 796485108588216380,
+        'role': 883740669020106812,
+        'spotifyid': 'mlgcongress',
+        'onrepeat': None,
+        'repeatrewind': None,
+    },
+    'AlphaPragosh': {
+        'id': 942940638234681414,
+        'role': 883740669020106812,
+        'spotifyid': 'mlgcongress',
         'onrepeat': None,
         'repeatrewind': None,
     }
