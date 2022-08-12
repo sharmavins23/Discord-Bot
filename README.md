@@ -173,7 +173,12 @@ _Release date: August 1, 2022_
 ## Version 1.6
 
 - Implemented a DB to hold values not important enough to be a config var
-- Updated Spotipy cache handler to replace config var usage with DB requests
+- Updated Spotipy custom cache handler to replace config var usage with DB
+  requests
 - Updated Spotify logic for updateTB2 to compensate for users with 1 playlist
+- Correctly implemented Spotify auth token checks to use records in DB
+- Implemented update of DB Spotify auth token when token is refreshed
+- Implemented record keeping of updates to TB 2.0 playlist
+- Updated spotifypassives logic to check DB records of playlist updates
 
-_Release date: , 2022_
+_Release date: August 11, 2022_

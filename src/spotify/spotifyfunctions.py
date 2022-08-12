@@ -239,6 +239,29 @@ def update_TrBl2():
 
     print(scraped_songs)
 
+    try:
+        # Connect to the DB
+        db_conn = psycopg2.connect(
+            tokens.get_database_url(), sslmode='require')
+        # Set the cursor
+        cur = db_conn.cursor()
+        # INSERT a record of this update
+        cur.execute(
+            """
+            INSERT INTO tribe_blend_update (discord_id, updated_date)
+            VALUES (%s, %s);
+            """,
+            (tokens.get_person_data('Pragosh', 'id'), datetime.now()))
+        # Save the changes
+        db_conn.commit()
+        # Close the cursor
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if db_conn is not None:
+            db_conn.close()
+
 
 def count_playlist_artists(playlistID):
     # get the playlist items

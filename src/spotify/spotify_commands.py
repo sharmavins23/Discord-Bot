@@ -18,11 +18,11 @@ class SpotifyCommands(commands.Cog):
 
         # Only the creator of Pragosh has the authority for this command
         if ctx.message.author.id == tokens.get_person_data('Curtis', 'id'):
-            music_chat = self.bot.get_channel(tokens.get_music_tchat())
+            bot_chat = self.bot.get_channel(tokens.get_bot_tchat())
             # Update the playlist
             spfunct.update_TrBl2()
-            # Let everybody know (only for these manual updates)
-            await music_chat.send(f"<@&{tokens.get_TribeBlend_role()}>, Tribe Blend 2.0 has been updated!")
+            # Make a record of this update
+            await bot_chat.send("Tribe Blend 2.0 has been updated!")
 
     @commands.command(name="topartists")
     async def findTopArtists(self, ctx, playlistID):
