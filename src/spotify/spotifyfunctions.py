@@ -34,7 +34,7 @@ class BotCacheHandler(spotipy.CacheHandler):
             # Pull the top output row
             row = cur.fetchone()
             if row is None:
-                token_info = os.environ['SPOTIPY_AUTH_CACHE']
+                token_info = json.loads(os.environ['SPOTIPY_AUTH_CACHE'])
             else:
                 # Turn the value of in the tuple into json
                 token_info = json.loads(row[0])
