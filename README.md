@@ -2,7 +2,7 @@
 
 The following is a printed overview of bot changes and release functionality.
 
-**Current version: [v1.5.6](#version-156)**
+**Current version: [v1.6](#version-16)**
 
 # Version 1
 
@@ -162,10 +162,23 @@ _Release date: July 21, 2022_
 
 _Release date: July 21, 2022_
 
-## Version 1.6
+## Version 1.5.6
 
 - Correctly implementing Spotify OAuth to function on Heroku
 - Changed update of Tribe Blend 2.0 to every 24 hours
 - Removed notification of Tribe Blend 2.0 updating
 
 _Release date: August 1, 2022_
+
+## Version 1.6
+
+- Implemented a DB to hold values not important enough to be a config var
+- Updated Spotipy custom cache handler to replace config var usage with DB
+  requests
+- Updated Spotify logic for updateTB2 to compensate for users with 1 playlist
+- Correctly implemented Spotify auth token checks to use records in DB
+- Implemented update of DB Spotify auth token when token is refreshed
+- Implemented record keeping of updates to TB 2.0 playlist
+- Updated spotifypassives logic to check DB records of playlist updates
+
+_Release date: August 11, 2022_

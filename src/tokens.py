@@ -3,6 +3,8 @@ import os
 
 
 # ===== Constants (Environment variables/Chat config) ==========================
+def get_database_url():
+    return os.environ['DATABASE_URL']
 
 
 def get_application_token():
@@ -74,8 +76,6 @@ def get_TribeBlend2_ID():
 
 
 # ===== Person-specific data ===================================================
-
-
 dataDict = {
     'Adam': {
         'id': 426825197866450975,
@@ -102,7 +102,7 @@ dataDict = {
         'id': 164299666714918912,
         'role': 746615079755055186,
         'spotifyid': "31s5eguzeenufwdbys5rtex4e3ay",
-        'onrepeat': None,
+        'onrepeat': '37i9dQZF1EptBfPvelQzcp',
         'repeatrewind': None,
     },
     'Ben': {
@@ -118,13 +118,6 @@ dataDict = {
         'spotifyid': 'ht68kx83oyis801h03x3iqa59',
         'onrepeat': '37i9dQZF1EphTASg1unLVv',
         'repeatrewind': '37i9dQZF1EpDCsWLnTtdT7',
-    },
-    'Curtbot': {
-        'id': 796485108588216380,
-        'role': 883740669020106812,
-        'spotifyid': 'mlgcongress',
-        'onrepeat': None,
-        'repeatrewind': None,
     },
     'Curtis': {
         'id': 271732817740693505,
@@ -158,8 +151,8 @@ dataDict = {
         'id': 329813627307687936,
         'role': 742208791004708984,
         'spotifyid': '22x6phuiclyuuuqjalypbt74a',
-        'onrepeat': None,
-        'repeatrewind': None,
+        'onrepeat': '37i9dQZF1EpiELg1ftzNgh',
+        'repeatrewind': '37i9dQZF1EpJ5FSmj5o2Mr',
     },
     'Kevin': {
         'id': 323888373662220298,
@@ -221,6 +214,20 @@ dataDict = {
         'id': 122489106818138113,
         'role': 918702896135151638,
         'spotifyid': None,
+        'onrepeat': None,
+        'repeatrewind': None,
+    },
+    'Pragosh': {
+        'id': 796485108588216380,
+        'role': 883740669020106812,
+        'spotifyid': 'mlgcongress',
+        'onrepeat': None,
+        'repeatrewind': None,
+    },
+    'AlphaPragosh': {
+        'id': 942940638234681414,
+        'role': 883740669020106812,
+        'spotifyid': 'mlgcongress',
         'onrepeat': None,
         'repeatrewind': None,
     }

@@ -1,9 +1,11 @@
+from datetime import datetime
 import random
 from .. import tokens as tokens
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
 import json
 import os
+import psycopg2
 
 
 class BotCacheHandler(spotipy.CacheHandler):
@@ -12,23 +14,80 @@ class BotCacheHandler(spotipy.CacheHandler):
     as json values in environment variable.
     """
 
-    def __init__(self):
-        self.env_var = os.environ['SPOTIPY_AUTH_CACHE']
-
     def get_cached_token(self):
+        db_conn = None
         token_info = None
+
         try:
-            token_info = json.loads(self.env_var)
-        except:
-            print('Cached token not found')
+            # Connect to the DB
+            db_conn = psycopg2.connect(
+                tokens.get_database_url(), sslmode='require')
+            # Set the cursor
+            cur = db_conn.cursor()
+            # SELECT the values we want
+            cur.execute(
+                """
+                SELECT auth_token
+                FROM spotify_auth_tokens
+                WHERE discord_id = %s;
+                """,
+                (tokens.get_person_data('Pragosh', 'id'),))
+            # Pull the top output row
+            row = cur.fetchone()
+            if row is None:
+                # Since there's no DB auth token, let's use the config var
+                token_info = json.loads(os.environ['SPOTIPY_AUTH_CACHE'])
+                # Let's also put this config var token into the DB now
+                cur.execute(
+                    """
+                    INSERT INTO spotify_auth_tokens (auth_token, discord_id, updated_date)
+                    VALUES (%s, %s, %s);
+                    """,
+                    (os.environ['SPOTIPY_AUTH_CACHE'], tokens.get_person_data('Pragosh', 'id'), datetime.now()))
+                # Save the changes
+                db_conn.commit()
+            else:
+                # Turn the value of in the tuple into json
+                token_info = json.loads(row[0])
+            # Close the cursor
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if db_conn is not None:
+                db_conn.close()
 
         return token_info
 
     def save_token_to_cache(self, token_info):
+        db_conn = None
+        # Make our token a json object to be sure
+        new_token = json.dumps(token_info)
+
         try:
-            self.env_var = json.dumps(token_info)
-        except:
-            print('Could not write token to cache')
+            # Connect to the DB
+            db_conn = psycopg2.connect(
+                tokens.get_database_url(), sslmode='require')
+            # Set the cursor
+            cur = db_conn.cursor()
+            # UPDATE the values we want
+            cur.execute(
+                """
+                UPDATE spotify_auth_tokens
+                SET auth_token = %s, discord_id = %s, updated_date = %s
+                """,
+                (new_token, tokens.get_person_data('Pragosh', 'id'), datetime.now()))
+            # Print the count of updated rows
+            print(cur.rowcount)
+            # Commit the updates
+            db_conn.commit()
+            # Close the cursor
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if db_conn is not None:
+                db_conn.close()
 
 
 # Set authorization in CC flow
@@ -53,8 +112,68 @@ def update_TrBl2():
 
     # iterate through all the people we have
     for person in tokens.dataDict:
-        # check that the person game me the links I've asked for 4 times and counting
-        if(tokens.get_person_data(person, 'onrepeat') is not None and tokens.get_person_data(person, 'repeatrewind') is not None):
+        # check that the person gave me the links I've asked for infinite times
+        if(tokens.get_person_data(person, 'onrepeat') is not None and tokens.get_person_data(person, 'repeatrewind') is None):
+            # get the On Repeat playlist data dump
+            on_repeat = sp_client.playlist_items(
+                tokens.get_person_data(person, 'onrepeat'), fields=None, limit=50, offset=0, market='US')
+            # get the size of the On Repeat playlist
+            playlist_size = on_repeat['total']
+            # divde that so we can get an even number of songs per participant
+            divisor = playlist_size//5
+            # randomly choose some track numbers to pick from OR
+            ORrands = [random.randint(0, divisor-1),
+                       random.randint(divisor, divisor*2-1),
+                       random.randint(divisor*2, divisor*3-1),
+                       random.randint(divisor*3, divisor*4-1),
+                       random.randint(divisor*4, playlist_size-1)]
+            # iterate through the track list pulled from the playlist
+            for idx, item in enumerate(on_repeat['items']):
+                # if this track is one of our randomly picked ones, lets save it
+                if idx in ORrands:
+                    song_count += 1  # incrememnt our counter for the big dict
+                    track = item['track']
+                    # save some info about this track; we'll use this later
+                    track_info = {
+                        "Title": track['name'],
+                        "ID": track['id'],
+                        "Added By": str(person),
+                        "Pulled From": 'On Repeat'
+                    }
+                    # update the dictionary of the songs we're pulling
+                    scraped_songs.update(
+                        {f"Track {song_count}": track_info})
+        elif(tokens.get_person_data(person, 'onrepeat') is None and tokens.get_person_data(person, 'repeatrewind') is not None):
+            # get the Repeat Rewind playlist data dump
+            repeat_rewind = sp_client.playlist_items(
+                tokens.get_person_data(person, 'repeatrewind'), fields=None, limit=50, offset=0, market='US')
+            # get the size of the Repeat Rewind playlist
+            playlist_size = repeat_rewind['total']
+            # divde that so we can get an even number of songs per participant
+            divisor = playlist_size//5
+            # randomly choose some track numbers to pick from RR
+            RRrands = [random.randint(0, divisor-1),
+                       random.randint(divisor, divisor*2-1),
+                       random.randint(divisor*2, divisor*3-1),
+                       random.randint(divisor*3, divisor*4-1),
+                       random.randint(divisor*4, playlist_size-1)]
+            # iterate through the track list pulled from the playlist
+            for idx, item in enumerate(repeat_rewind['items']):
+                # if this track is one of our randomly picked ones, lets save it
+                if idx in RRrands:
+                    song_count += 1  # incrememnt our counter for the big dict
+                    track = item['track']
+                    # save some info about this track; we'll use this later
+                    track_info = {
+                        "Title": track['name'],
+                        "ID": track['id'],
+                        "Added By": str(person),
+                        "Pulled From": 'Repeat Rewind'
+                    }
+                    # update the dictionary of the songs we're pulling
+                    scraped_songs.update(
+                        {f"Track {song_count}": track_info})
+        elif(tokens.get_person_data(person, 'onrepeat') is not None and tokens.get_person_data(person, 'repeatrewind') is not None):
             # get the On Repeat playlist data dump
             on_repeat = sp_client.playlist_items(
                 tokens.get_person_data(person, 'onrepeat'), fields=None, limit=50, offset=0, market='US')
@@ -63,8 +182,9 @@ def update_TrBl2():
             # divde that so we can get an even number of songs per participant
             divisor = playlist_size//3
             # randomly choose some track numbers to pick from OR
-            ORrands = [random.randint(0, divisor-1), random.randint(
-                divisor, divisor*2-1), random.randint(divisor*2, playlist_size-1)]
+            ORrands = [random.randint(0, divisor-1),
+                       random.randint(divisor, divisor*2-1),
+                       random.randint(divisor*2, playlist_size-1)]
             # iterate through the track list pulled from the playlist
             for idx, item in enumerate(on_repeat['items']):
                 # if this track is one of our randomly picked ones, lets save it
@@ -118,6 +238,29 @@ def update_TrBl2():
         tokens.get_TribeBlend2_ID(), tracklist)
 
     print(scraped_songs)
+
+    try:
+        # Connect to the DB
+        db_conn = psycopg2.connect(
+            tokens.get_database_url(), sslmode='require')
+        # Set the cursor
+        cur = db_conn.cursor()
+        # INSERT a record of this update
+        cur.execute(
+            """
+            INSERT INTO tribe_blend_update (discord_id, updated_date)
+            VALUES (%s, %s);
+            """,
+            (tokens.get_person_data('Pragosh', 'id'), datetime.now()))
+        # Save the changes
+        db_conn.commit()
+        # Close the cursor
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if db_conn is not None:
+            db_conn.close()
 
 
 def count_playlist_artists(playlistID):
