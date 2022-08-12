@@ -26,15 +26,26 @@ class BotCacheHandler(spotipy.CacheHandler):
             cur = db_conn.cursor()
             # SELECT the values we want
             cur.execute(
-                """ SELECT auth_token
-                    FROM spotify_auth_tokens
-                    WHERE discord_id = %s;
+                """
+                SELECT auth_token
+                FROM spotify_auth_tokens
+                WHERE discord_id = %s;
                 """,
                 (tokens.get_person_data('Pragosh', 'id'),))
             # Pull the top output row
             row = cur.fetchone()
             if row is None:
+                # Since there's no DB auth token, let's use the config var
                 token_info = json.loads(os.environ['SPOTIPY_AUTH_CACHE'])
+                # Let's also put this config var token into the DB now
+                cur.execute(
+                    """
+                    INSERT INTO spotify_auth_tokens (auth_token, discord_id, updated_date)
+                    VALUES (%s, %s, %s);
+                    """,
+                    (os.environ['SPOTIPY_AUTH_CACHE'], tokens.get_person_data('Pragosh', 'id'), datetime.now()))
+                # Save the changes
+                db_conn.commit()
             else:
                 # Turn the value of in the tuple into json
                 token_info = json.loads(row[0])
@@ -61,8 +72,10 @@ class BotCacheHandler(spotipy.CacheHandler):
             cur = db_conn.cursor()
             # UPDATE the values we want
             cur.execute(
-                """ UPDATE spotify_auth_tokens
-                    SET auth_token = %s, discord_id = %s, updated_date = %s""",
+                """
+                UPDATE spotify_auth_tokens
+                SET auth_token = %s, discord_id = %s, updated_date = %s
+                """,
                 (new_token, tokens.get_person_data('Pragosh', 'id'), datetime.now()))
             # Print the count of updated rows
             print(cur.rowcount)
