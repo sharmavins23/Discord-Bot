@@ -48,7 +48,7 @@ class SpotifyPassives(commands.Cog):
                 await bot_chat.send(trbl_update_string)
             else:
                 # Check if the last time we updated was over a day ago
-                if row[0] < (datetime.datetime.now() - datetime.timedelta(hours=24)):
+                if row[0] < (datetime.datetime.now() - datetime.timedelta(minutes=1)):
                     # Update the playlist because it's out of date
                     update_TrBl2()
                     # Make a record of this update
