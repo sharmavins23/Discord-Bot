@@ -19,7 +19,7 @@ class SpotifyPassives(commands.Cog):
         return tokens.get_discordid_from_spotifyid(spot_id)
 
     # Pragosh's background behavior
-    @tasks.loop(minutes=3)  # running loop every x time
+    @tasks.loop(minutes=70)  # running loop every x time
     async def tribe_blend_checkup(self):
         # Grab relevant server channels used to send messages
         bot_chat = self.bot.get_channel(tokens.get_bot_tchat())
