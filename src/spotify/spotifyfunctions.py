@@ -30,7 +30,7 @@ class BotCacheHandler(spotipy.CacheHandler):
                     FROM spotify_auth_tokens
                     WHERE discord_id = %s;
                 """,
-                tokens.get_person_data('Pragosh', 'id'))
+                (tokens.get_person_data('Pragosh', 'id'),))
             # Pull the top output row
             row = cur.fetchone()
             if row is None:
@@ -63,7 +63,7 @@ class BotCacheHandler(spotipy.CacheHandler):
             cur.execute(
                 """ UPDATE spotify_auth_tokens
                     SET auth_token = %s, discord_id = %s, updated_date = %s""",
-                new_token, tokens.get_person_data('Pragosh', 'id'), datetime.now())
+                (new_token, tokens.get_person_data('Pragosh', 'id'), datetime.now()))
             # Print the count of updated rows
             print(cur.rowcount)
             # Commit the updates
