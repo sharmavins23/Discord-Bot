@@ -92,7 +92,8 @@ class BotCacheHandler(spotipy.CacheHandler):
 
 # Set authorization in CC flow
 auth_manager = SpotifyClientCredentials(client_id=tokens.get_spotify_clientid(),
-                                        client_secret=tokens.get_spotify_secretid())
+                                        client_secret=tokens.get_spotify_secretid(),
+                                        cache_handler=BotCacheHandler())
 sp_client = spotipy.Spotify(auth_manager=auth_manager)
 
 
