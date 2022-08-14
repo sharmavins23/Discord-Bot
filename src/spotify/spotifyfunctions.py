@@ -29,9 +29,9 @@ class BotCacheHandlerClient(spotipy.CacheHandler):
                 """
                 SELECT auth_token
                 FROM spotify_auth_tokens
-                WHERE discord_id = %s;
+                WHERE workflow = %s;
                 """,
-                (tokens.get_person_data('Pragosh', 'id'),))
+                ('Client',))
             # Pull the top output row
             row = cur.fetchone()
             if row is None:
@@ -111,9 +111,9 @@ class BotCacheHandlerAuth(spotipy.CacheHandler):
                 """
                 SELECT auth_token
                 FROM spotify_auth_tokens
-                WHERE discord_id = %s;
+                WHERE workflow = %s;
                 """,
-                (tokens.get_person_data('Pragosh', 'id'),))
+                ('Auth',))
             # Pull the top output row
             row = cur.fetchone()
             if row is None:
