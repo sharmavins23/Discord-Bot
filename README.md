@@ -2,7 +2,7 @@
 
 The following is a printed overview of bot changes and release functionality.
 
-**Current version: [v1.6](#version-16)**
+**Current version: [v1.6.1](#version-161)**
 
 # Version 1
 
@@ -182,3 +182,10 @@ _Release date: August 1, 2022_
 - Updated spotifypassives logic to check DB records of playlist updates
 
 _Release date: August 11, 2022_
+
+## Version 1.6.1
+
+- Created second cache handler so we have separate tokens for CC vs CAC flows
+- Added cache handler to client credentials flow
+
+_Release date: August 14, 2022_
