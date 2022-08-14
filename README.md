@@ -2,7 +2,7 @@
 
 The following is a printed overview of bot changes and release functionality.
 
-**Current version: [v1.6.0.1](#version-1601)**
+**Current version: [v1.6.1](#version-161)**
 
 # Version 1
 
@@ -183,8 +183,9 @@ _Release date: August 1, 2022_
 
 _Release date: August 11, 2022_
 
-## Version 1.6.0.1
+## Version 1.6.1
 
-- Added cache handler to client credentials flow as well for redundancy
+- Created second cache handler so we have separate tokens for CC vs CAC flows
+- Added cache handler to client credentials flow
 
 _Release date: August 14, 2022_

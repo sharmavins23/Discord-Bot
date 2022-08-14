@@ -8,7 +8,7 @@ import os
 import psycopg2
 
 
-class BotCacheHandler(spotipy.CacheHandler):
+class BotCacheHandlerClient(spotipy.CacheHandler):
     """
     Handles reading and writing cached Spotify authorization tokens
     as json values in environment variable.
@@ -40,10 +40,10 @@ class BotCacheHandler(spotipy.CacheHandler):
                 # Let's also put this config var token into the DB now
                 cur.execute(
                     """
-                    INSERT INTO spotify_auth_tokens (auth_token, discord_id, updated_date)
+                    INSERT INTO spotify_auth_tokens (auth_token, workflow, updated_date)
                     VALUES (%s, %s, %s);
                     """,
-                    (os.environ['SPOTIPY_AUTH_CACHE'], tokens.get_person_data('Pragosh', 'id'), datetime.now()))
+                    (os.environ['SPOTIPY_AUTH_CACHE'], 'Client', datetime.now()))
                 # Save the changes
                 db_conn.commit()
             else:
@@ -74,9 +74,91 @@ class BotCacheHandler(spotipy.CacheHandler):
             cur.execute(
                 """
                 UPDATE spotify_auth_tokens
-                SET auth_token = %s, discord_id = %s, updated_date = %s
+                SET auth_token = %s, workflow = %s, updated_date = %s
                 """,
-                (new_token, tokens.get_person_data('Pragosh', 'id'), datetime.now()))
+                (new_token, 'Client', datetime.now()))
+            # Print the count of updated rows
+            print(cur.rowcount)
+            # Commit the updates
+            db_conn.commit()
+            # Close the cursor
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if db_conn is not None:
+                db_conn.close()
+
+
+class BotCacheHandlerAuth(spotipy.CacheHandler):
+    """
+    Handles reading and writing cached Spotify authorization tokens
+    as json values in environment variable.
+    """
+
+    def get_cached_token(self):
+        db_conn = None
+        token_info = None
+
+        try:
+            # Connect to the DB
+            db_conn = psycopg2.connect(
+                tokens.get_database_url(), sslmode='require')
+            # Set the cursor
+            cur = db_conn.cursor()
+            # SELECT the values we want
+            cur.execute(
+                """
+                SELECT auth_token
+                FROM spotify_auth_tokens
+                WHERE discord_id = %s;
+                """,
+                (tokens.get_person_data('Pragosh', 'id'),))
+            # Pull the top output row
+            row = cur.fetchone()
+            if row is None:
+                # Since there's no DB auth token, let's use the config var
+                token_info = json.loads(os.environ['SPOTIPY_AUTH_CACHE'])
+                # Let's also put this config var token into the DB now
+                cur.execute(
+                    """
+                    INSERT INTO spotify_auth_tokens (auth_token, workflow, updated_date)
+                    VALUES (%s, %s, %s);
+                    """,
+                    (os.environ['SPOTIPY_AUTH_CACHE'], 'Auth', datetime.now()))
+                # Save the changes
+                db_conn.commit()
+            else:
+                # Turn the value of in the tuple into json
+                token_info = json.loads(row[0])
+            # Close the cursor
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if db_conn is not None:
+                db_conn.close()
+
+        return token_info
+
+    def save_token_to_cache(self, token_info):
+        db_conn = None
+        # Make our token a json object to be sure
+        new_token = json.dumps(token_info)
+
+        try:
+            # Connect to the DB
+            db_conn = psycopg2.connect(
+                tokens.get_database_url(), sslmode='require')
+            # Set the cursor
+            cur = db_conn.cursor()
+            # UPDATE the values we want
+            cur.execute(
+                """
+                UPDATE spotify_auth_tokens
+                SET auth_token = %s, workflow = %s, updated_date = %s
+                """,
+                (new_token, 'Auth', datetime.now()))
             # Print the count of updated rows
             print(cur.rowcount)
             # Commit the updates
@@ -93,7 +175,7 @@ class BotCacheHandler(spotipy.CacheHandler):
 # Set authorization in CC flow
 auth_manager = SpotifyClientCredentials(client_id=tokens.get_spotify_clientid(),
                                         client_secret=tokens.get_spotify_secretid(),
-                                        cache_handler=BotCacheHandler())
+                                        cache_handler=BotCacheHandlerClient())
 sp_client = spotipy.Spotify(auth_manager=auth_manager)
 
 
@@ -106,7 +188,7 @@ def update_TrBl2():
                                   client_secret=tokens.get_spotify_secretid(),
                                   redirect_uri=tokens.get_redirect_uri(),
                                   scope=playlistscope,
-                                  cache_handler=BotCacheHandler()))
+                                  cache_handler=BotCacheHandlerAuth()))
 
     scraped_songs = dict()
     song_count = 0

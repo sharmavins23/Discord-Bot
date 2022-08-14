@@ -97,7 +97,7 @@ async def bot_bio(context):
     )
     bio_embed.add_field(
         name="Current Version",
-        value="v1.6.0.1",
+        value="v1.6.1",
         inline=True
     )
     bio_embed.add_field(
