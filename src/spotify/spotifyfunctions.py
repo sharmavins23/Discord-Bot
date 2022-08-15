@@ -75,8 +75,9 @@ class BotCacheHandlerClient(spotipy.CacheHandler):
                 """
                 UPDATE spotify_auth_tokens
                 SET auth_token = %s, workflow = %s, updated_date = %s
+                WHERE workflow = %s
                 """,
-                (new_token, 'Client', datetime.now()))
+                (new_token, 'Client', datetime.now(), 'Client'))
             # Print the count of updated rows
             print(cur.rowcount)
             # Commit the updates
@@ -157,8 +158,9 @@ class BotCacheHandlerAuth(spotipy.CacheHandler):
                 """
                 UPDATE spotify_auth_tokens
                 SET auth_token = %s, workflow = %s, updated_date = %s
+                WHERE workflow = %s
                 """,
-                (new_token, 'Auth', datetime.now()))
+                (new_token, 'Auth', datetime.now(), 'Auth'))
             # Print the count of updated rows
             print(cur.rowcount)
             # Commit the updates
