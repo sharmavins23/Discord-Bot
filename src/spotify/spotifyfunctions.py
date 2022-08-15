@@ -2,93 +2,10 @@ from datetime import datetime
 import random
 from .. import tokens as tokens
 import spotipy
-from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyOAuth
 import json
 import os
 import psycopg2
-
-
-class BotCacheHandlerClient(spotipy.CacheHandler):
-    """
-    Handles reading and writing cached Spotify authorization tokens
-    as json values in environment variable.
-    """
-
-    def get_cached_token(self):
-        db_conn = None
-        token_info = None
-
-        try:
-            # Connect to the DB
-            db_conn = psycopg2.connect(
-                tokens.get_database_url(), sslmode='require')
-            # Set the cursor
-            cur = db_conn.cursor()
-            # SELECT the values we want
-            cur.execute(
-                """
-                SELECT auth_token
-                FROM spotify_auth_tokens
-                WHERE workflow = %s;
-                """,
-                ('Client',))
-            # Pull the top output row
-            row = cur.fetchone()
-            if row is None:
-                # Since there's no DB auth token, let's use the config var
-                token_info = json.loads(os.environ['SPOTIPY_AUTH_CACHE'])
-                # Let's also put this config var token into the DB now
-                cur.execute(
-                    """
-                    INSERT INTO spotify_auth_tokens (auth_token, workflow, updated_date)
-                    VALUES (%s, %s, %s);
-                    """,
-                    (os.environ['SPOTIPY_AUTH_CACHE'], 'Client', datetime.now()))
-                # Save the changes
-                db_conn.commit()
-            else:
-                # Turn the value of in the tuple into json
-                token_info = json.loads(row[0])
-            # Close the cursor
-            cur.close()
-        except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
-        finally:
-            if db_conn is not None:
-                db_conn.close()
-
-        return token_info
-
-    def save_token_to_cache(self, token_info):
-        db_conn = None
-        # Make our token a json object to be sure
-        new_token = json.dumps(token_info)
-
-        try:
-            # Connect to the DB
-            db_conn = psycopg2.connect(
-                tokens.get_database_url(), sslmode='require')
-            # Set the cursor
-            cur = db_conn.cursor()
-            # UPDATE the values we want
-            cur.execute(
-                """
-                UPDATE spotify_auth_tokens
-                SET auth_token = %s, workflow = %s, updated_date = %s
-                WHERE workflow = %s
-                """,
-                (new_token, 'Client', datetime.now(), 'Client'))
-            # Print the count of updated rows
-            print(cur.rowcount)
-            # Commit the updates
-            db_conn.commit()
-            # Close the cursor
-            cur.close()
-        except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
-        finally:
-            if db_conn is not None:
-                db_conn.close()
 
 
 class BotCacheHandlerAuth(spotipy.CacheHandler):
@@ -174,24 +91,18 @@ class BotCacheHandlerAuth(spotipy.CacheHandler):
                 db_conn.close()
 
 
-# Set authorization in CC flow
-auth_manager = SpotifyClientCredentials(client_id=tokens.get_spotify_clientid(),
-                                        client_secret=tokens.get_spotify_secretid(),
-                                        cache_handler=BotCacheHandlerClient())
-sp_client = spotipy.Spotify(auth_manager=auth_manager)
+# Setting a scope for CAC flow
+playlistscope = "playlist-modify-public user-library-modify"
+# Get CAC authorized variable
+sp_auth = spotipy.Spotify(
+    auth_manager=SpotifyOAuth(client_id=tokens.get_spotify_clientid(),
+                              client_secret=tokens.get_spotify_secretid(),
+                              redirect_uri=tokens.get_redirect_uri(),
+                              scope=playlistscope,
+                              cache_handler=BotCacheHandlerAuth()))
 
 
 def update_TrBl2():
-    # Setting a scope for CAC flow
-    playlistscope = "playlist-modify-public"
-    # Get CAC authorized variable
-    sp_auth = spotipy.Spotify(
-        auth_manager=SpotifyOAuth(client_id=tokens.get_spotify_clientid(),
-                                  client_secret=tokens.get_spotify_secretid(),
-                                  redirect_uri=tokens.get_redirect_uri(),
-                                  scope=playlistscope,
-                                  cache_handler=BotCacheHandlerAuth()))
-
     scraped_songs = dict()
     song_count = 0
 
@@ -200,7 +111,7 @@ def update_TrBl2():
         # check that the person gave me the links I've asked for infinite times
         if(tokens.get_person_data(person, 'onrepeat') is not None and tokens.get_person_data(person, 'repeatrewind') is None):
             # get the On Repeat playlist data dump
-            on_repeat = sp_client.playlist_items(
+            on_repeat = sp_auth.playlist_items(
                 tokens.get_person_data(person, 'onrepeat'), fields=None, limit=50, offset=0, market='US')
             # get the size of the On Repeat playlist
             playlist_size = on_repeat['total']
@@ -230,7 +141,7 @@ def update_TrBl2():
                         {f"Track {song_count}": track_info})
         elif(tokens.get_person_data(person, 'onrepeat') is None and tokens.get_person_data(person, 'repeatrewind') is not None):
             # get the Repeat Rewind playlist data dump
-            repeat_rewind = sp_client.playlist_items(
+            repeat_rewind = sp_auth.playlist_items(
                 tokens.get_person_data(person, 'repeatrewind'), fields=None, limit=50, offset=0, market='US')
             # get the size of the Repeat Rewind playlist
             playlist_size = repeat_rewind['total']
@@ -260,7 +171,7 @@ def update_TrBl2():
                         {f"Track {song_count}": track_info})
         elif(tokens.get_person_data(person, 'onrepeat') is not None and tokens.get_person_data(person, 'repeatrewind') is not None):
             # get the On Repeat playlist data dump
-            on_repeat = sp_client.playlist_items(
+            on_repeat = sp_auth.playlist_items(
                 tokens.get_person_data(person, 'onrepeat'), fields=None, limit=50, offset=0, market='US')
             # get the size of the On Repeat playlist
             playlist_size = on_repeat['total']
@@ -288,7 +199,7 @@ def update_TrBl2():
                         {f"Track {song_count}": track_info})
 
             # get the Repeat Rewind playlist data dump
-            repeat_rewind = sp_client.playlist_items(
+            repeat_rewind = sp_auth.playlist_items(
                 tokens.get_person_data(person, 'repeatrewind'), fields=None, limit=50, offset=0, market='US')
             # get the size of the Repeat Rewind playlist
             playlist_size = repeat_rewind['total']
@@ -350,14 +261,14 @@ def update_TrBl2():
 
 def count_playlist_artists(playlistID):
     # get the playlist items
-    playlist = sp_client.playlist_items(playlistID, limit=100)
+    playlist = sp_auth.playlist_items(playlistID, limit=100)
     playlistSize = playlist["total"]
     # Starting empty dictionary to hold what I want
     artistCountDict = {}
 
     loopcount = 0
     while playlistSize > 0:
-        playlist = sp_client.playlist_items(
+        playlist = sp_auth.playlist_items(
             playlistID, limit=100, offset=100*loopcount)
         # For every single item (song) in the playlist
         for item in playlist["items"]:
@@ -396,18 +307,18 @@ def sort_artist_dict(artistDict):
 
 
 def get_playlist_name(playlistID):
-    playlist = sp_client.playlist(playlistID)
+    playlist = sp_auth.playlist(playlistID)
     return playlist["name"]
 
 
 # this function is not used. it is simply for testing purposes
 def output_playlist_info():
     # change the spotipy method here to test object output
-    tribeblend = sp_client.playlist_items(tokens.get_TribeBlend2_ID())
+    tribeblend = sp_auth.playlist_items(tokens.get_TribeBlend2_ID())
     # print results to a formatted file for viewing. (file is gitignored)
     with open('playlist_items_output', 'w') as playlist_output:
         json.dump(tribeblend, playlist_output, indent=4, sort_keys=True)
-    tribeback = sp_client.playlist(tokens.get_TribeBlend2_ID())
+    tribeback = sp_auth.playlist(tokens.get_TribeBlend2_ID())
     # print results to a formatted file for viewing. (file is gitignored)
     with open('playlist_output', 'w') as playlist_output:
         json.dump(tribeback, playlist_output, indent=4, sort_keys=True)
