@@ -39,7 +39,7 @@ _Release date: December 12, 2021_
 
 _Release date: January 02, 2022_
 
-### Version 1.2.1.1
+**Version 1.2.1.1**
 
 - Organized file structure
 - Began using Cogs to further increase organization
@@ -128,20 +128,20 @@ _Release date: May 1, 2022_
 
 _Release date: May 2, 2022_
 
-## Version 1.5.2
+### Version 1.5.2
 
 - Splitting Spotify work into several files/functions
 
 _Release date: May 4, 2022_
 
-## Version 1.5.3
+### Version 1.5.3
 
 - Spotify update command is functional
 - Changed person data dictionary in tokens file
 
 _Release date: June 28, 2022_
 
-## Version 1.5.4
+### Version 1.5.4
 
 - Adjusting random song selection to compensate for various playlist sizes
 - Better fool-proofed the random number command to be resilient to bad inputs
@@ -149,7 +149,7 @@ _Release date: June 28, 2022_
 
 _Release date: June 30, 2022_
 
-## Version 1.5.5
+### Version 1.5.5
 
 - Adding feature to count the artists in a playlist
 - Used feature to return the top 5 artists in a playlist
@@ -162,7 +162,7 @@ _Release date: July 21, 2022_
 
 _Release date: July 21, 2022_
 
-## Version 1.5.6
+### Version 1.5.6
 
 - Correctly implementing Spotify OAuth to function on Heroku
 - Changed update of Tribe Blend 2.0 to every 24 hours
@@ -183,7 +183,7 @@ _Release date: August 1, 2022_
 
 _Release date: August 11, 2022_
 
-## Version 1.6.1
+### Version 1.6.1
 
 - Created second cache handler so we have separate tokens for CC vs CAC flows
 - Added cache handler to client credentials flow
