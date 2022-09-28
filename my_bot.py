@@ -9,6 +9,7 @@ from src.spotify.spotifypassives import SpotifyPassives
 from src.spotify.spotify_commands import SpotifyCommands
 import src.tokens as tokens
 from src.randomness import Randomness
+from src.bettingodds import BettingOdds
 
 # Initialize bot
 client = commands.Bot(
@@ -60,6 +61,7 @@ async def command_help(context, command=None):
                         \ncoinflip \
                         \nrandomcolor \
                         \ntopartists \
+                        \nbettingodds \
                         \n\nFor further help, type \'Pragosh, help `command`\''
     elif command == "bio":
         help_message = 'The bio command returns information about the currently released version of the bot'
@@ -74,6 +76,10 @@ async def command_help(context, command=None):
         help_message = 'This command provides you with the top 5 most common artists in a playlist \
                         \nTo use this command, type: \'Pragosh, topartists `playlist link`\' \
                         \nFor example: \'Pragosh, topartists https://open.spotify.com/playlist/0fyr74e0hLjFJ3778Vw0SZ?si=0824b597bf5d4182\''
+    elif command == "bettingodds":
+        help_message = 'Enter a betting odd (and optionally, the amount of money you\'re betting) and Pragosh will tell you how much you might win \
+                        \nTo use this command, type: \'Pragosh, bettingodds `betting odd` `bet amount` \
+                        \nFor example: \'Pragosh, bettingodds -3600 100\' or \'Pragosh, bettingodds +420\''
 
     await context.message.reply(help_message)
 
