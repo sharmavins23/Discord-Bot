@@ -40,9 +40,14 @@ async def on_message(message):
     if message.author.id == tokens.get_person_data('Tatsu', 'id'):
         context = await client.get_context(message)
         await context.message.reply("Please stop abusing your girlfriend")
-    if "POG" in message.content.upper():  # instant reacting to messages with pog
+    # instant WillPOG-ing
+    if "POG" in message.content.upper():
         will_pog_emoji = client.get_emoji(918323637398941716)
         await message.add_reaction(will_pog_emoji)
+    # instant replying with Radical Islam
+    if "RADICAL ISLAM" in message.content.upper():
+        context = await client.get_context(message)
+        await context.message.reply("https://media.discordapp.net/attachments/739822762062905487/1010339047614455838/image0.gif")
 
     await client.process_commands(message)
 

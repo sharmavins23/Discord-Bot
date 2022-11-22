@@ -189,3 +189,12 @@ _Release date: August 11, 2022_
 - Added cache handler to client credentials flow
 
 _Release date: August 14, 2022_
+
+### Version 1.6.2
+
+- Implemented saving the TB 2.0 results to a DB table
+- Implemented annotations command for TB 2.0
+- Altered the conditional logic for passively updating TB 2.0
+- Added another instant reply (Radical Islam)
+
+_Release date: TBD, 2022_
