@@ -2,7 +2,7 @@
 
 The following is a printed overview of bot changes and release functionality.
 
-**Current version: [v1.6.1](#version-161)**
+**Current version: [v1.6.2](#version-162)**
 
 # Version 1
 
@@ -189,3 +189,13 @@ _Release date: August 11, 2022_
 - Added cache handler to client credentials flow
 
 _Release date: August 14, 2022_
+
+### Version 1.6.2
+
+- Implemented saving the TB 2.0 results to a DB table
+- Implemented checkpoint annotations command for TB 2.0
+- Altered the conditional logic for passively updating TB 2.0
+- Added another instant reply (Radical Islam)
+- Implemented song annotation command for TB 2.0
+
+_Release date: November 22, 2022_

@@ -40,9 +40,14 @@ async def on_message(message):
     if message.author.id == tokens.get_person_data('Tatsu', 'id'):
         context = await client.get_context(message)
         await context.message.reply("Please stop abusing your girlfriend")
-    if "POG" in message.content.upper():  # instant reacting to messages with pog
+    # instant WillPOG-ing
+    if "POG" in message.content.upper():
         will_pog_emoji = client.get_emoji(918323637398941716)
         await message.add_reaction(will_pog_emoji)
+    # instant replying with Radical Islam
+    if "RADICAL ISLAM" in message.content.upper():
+        context = await client.get_context(message)
+        await context.message.reply("https://media.discordapp.net/attachments/739822762062905487/1010339047614455838/image0.gif")
 
     await client.process_commands(message)
 
@@ -60,6 +65,8 @@ async def command_help(context, command=None):
                         \ncoinflip \
                         \nrandomcolor \
                         \ntopartists \
+                        \nTBcheckpoints \
+                        \nTBsong \
                         \n\nFor further help, type \'Pragosh, help `command`\''
     elif command == "bio":
         help_message = 'The bio command returns information about the currently released version of the bot'
@@ -71,9 +78,15 @@ async def command_help(context, command=None):
     elif command == "randomcolor":
         help_message = 'The random color command returns a random color with the hex code'
     elif command == "topartists":
-        help_message = 'This command provides you with the top 5 most common artists in a playlist \
+        help_message = 'The top artists command provides you with the top 5 most common artists in a playlist \
                         \nTo use this command, type: \'Pragosh, topartists `playlist link`\' \
                         \nFor example: \'Pragosh, topartists https://open.spotify.com/playlist/0fyr74e0hLjFJ3778Vw0SZ?si=0824b597bf5d4182\''
+    elif command == "TBcheckpoints":
+        help_message = 'The TB checkpoints command gives you a transcript of the first song for everyone in \
+                        the Tribe Blend 2.0 playlist, so you can find them easier.'
+    elif command == "TBsong":
+        help_message = 'The TB song command gets you info about a song from TB 2.0 \
+                        \nTo use this command, type \'Pragosh, TBsong `song link`\''
 
     await context.message.reply(help_message)
 
@@ -97,12 +110,12 @@ async def bot_bio(context):
     )
     bio_embed.add_field(
         name="Current Version",
-        value="v1.6.1",
+        value="v1.6.2",
         inline=True
     )
     bio_embed.add_field(
         name="Release Date",
-        value="August 14, 2022",
+        value="November 22, 2022",
         inline=True
     )
     await context.message.reply(embed=bio_embed)

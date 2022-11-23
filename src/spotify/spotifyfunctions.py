@@ -1,5 +1,6 @@
 from datetime import datetime
 import random
+from subprocess import check_output
 from .. import tokens as tokens
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
@@ -337,11 +338,28 @@ def update_TrBl2():
             VALUES (%s, %s);
             """,
             (tokens.get_person_data('Pragosh', 'id'), datetime.now()))
+
+        cur.execute(
+            """
+            TRUNCATE tribe_blend_song
+            """
+        )
+        for song in scraped_songs.keys():
+            track = scraped_songs[song]
+            cur.execute(
+                """
+                INSERT INTO tribe_blend_song (discord_id, playlist_id, song_spotify_id, song_title, song_url)
+                VALUES (%s, %s, %s, %s, %s);
+                """,
+                (tokens.get_person_data(track["Added By"], 'id'), track["Pulled From"],
+                 track["ID"], track["Title"], f"https://open.spotify.com/track/{track['ID']}")
+            )
+
         # Save the changes
         db_conn.commit()
         # Close the cursor
         cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
+    except (psycopg2.DatabaseError) as error:
         print(error)
     finally:
         if db_conn is not None:
@@ -381,6 +399,41 @@ def count_playlist_artists(playlistID):
 
     # Sort the final dictionary to make it easier to find the max
     return sort_artist_dict(artistCountDict)
+
+
+# Retrieve the tribe_blend_songs table
+def get_TB_table_data():
+    """Does a basic SELECT * query on the TB2.0 table
+
+    Returns:
+        list: list of tuples with each tuple representing a row
+            (Song#, Title, SpotID, URL, DiscID, PlaylistName, Person, RoleID)
+    """
+    try:
+        # Connect to the DB
+        db_conn = psycopg2.connect(
+            tokens.get_database_url(), sslmode='require')
+        # Set the cursor
+        cur = db_conn.cursor()
+        # SELECT the values we want
+        cur.execute(
+            """
+            SELECT s.*, d.person_name, d.role_id
+            FROM tribe_blend_song as s
+            JOIN discord_user as d on d.discord_id = s.discord_id
+            """,
+        )
+        # Pull the top output row
+        tb_songs = cur.fetchall()
+        # Close the cursor
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if db_conn is not None:
+            db_conn.close()
+        if tb_songs is not None:
+            return tb_songs
 
 
 def sort_artist_dict(artistDict):
