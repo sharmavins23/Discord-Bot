@@ -25,7 +25,7 @@ class SpotifyCommands(commands.Cog):
             await bot_chat.send("Tribe Blend 2.0 has been updated!")
 
     @commands.command(name="topartists")
-    async def find_top_artists(self, ctx, playlistID: str):
+    async def find_top_artists(self, ctx, playlistID):
         if ctx.message.author.bot:  # don't want to take commands from any bots
             return
 
@@ -65,7 +65,7 @@ class SpotifyCommands(commands.Cog):
             await ctx.message.reply(chkp_string)
 
     @commands.command(name="TBsong")
-    async def get_TB_song(self, ctx, songlink: str):
+    async def get_TB_song(self, ctx, songlink):
         if ctx.message.author.bot:  # don't want to take commands from any bots
             return
 
@@ -79,6 +79,7 @@ class SpotifyCommands(commands.Cog):
                 song_id = songlink[startofid:endofid]
 
             if song_id is not None:
+                print(song_id)
                 tb_songs = spfunct.get_TB_table_data()
                 for song in tb_songs:
                     _, title, songID, _, _, playlist, _, role = song

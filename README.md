@@ -193,8 +193,9 @@ _Release date: August 14, 2022_
 ### Version 1.6.2
 
 - Implemented saving the TB 2.0 results to a DB table
-- Implemented annotations command for TB 2.0
+- Implemented checkpoint annotations command for TB 2.0
 - Altered the conditional logic for passively updating TB 2.0
 - Added another instant reply (Radical Islam)
+- Implemented song annotation command for TB 2.0
 
-_Release date: TBD, 2022_
+_Release date: November 22, 2022_
