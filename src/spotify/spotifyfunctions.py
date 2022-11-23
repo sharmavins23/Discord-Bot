@@ -403,6 +403,12 @@ def count_playlist_artists(playlistID):
 
 # Retrieve the tribe_blend_songs table
 def get_TB_table_data():
+    """Does a basic SELECT * query on the TB2.0 table
+
+    Returns:
+        list: list of tuples with each tuple representing a row
+            (Song#, Title, SpotID, URL, DiscID, PlaylistName, Person, RoleID)
+    """
     try:
         # Connect to the DB
         db_conn = psycopg2.connect(
@@ -428,21 +434,6 @@ def get_TB_table_data():
             db_conn.close()
         if tb_songs is not None:
             return tb_songs
-
-
-# Function for checkpoint annotations command
-def get_checkpoints() -> str:
-    # Setup blank string
-    chkp_string = ''
-    # Get the query results
-    tb_songs = get_TB_table_data()
-    # Iterate through them all
-    for song in tb_songs:
-        # Since there's 5 songs per person, get the first one
-        if (int(song[0])-1) % 5 == 0:
-            # Add it to the output string
-            chkp_string += f"{song[6]}'s first song: {song[1]}\n"
-    return chkp_string
 
 
 def sort_artist_dict(artistDict):

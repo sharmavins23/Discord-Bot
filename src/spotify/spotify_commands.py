@@ -25,7 +25,7 @@ class SpotifyCommands(commands.Cog):
             await bot_chat.send("Tribe Blend 2.0 has been updated!")
 
     @commands.command(name="topartists")
-    async def find_top_artists(self, ctx, playlistID):
+    async def find_top_artists(self, ctx, playlistID: str):
         if ctx.message.author.bot:  # don't want to take commands from any bots
             return
 
@@ -48,4 +48,43 @@ class SpotifyCommands(commands.Cog):
         if ctx.message.author.bot:  # don't want to take commands from any bots
             return
 
-        await ctx.message.reply(spfunct.get_checkpoints())
+        # Setup blank string
+        chkp_string = ''
+        # Get the query results
+        tb_songs = spfunct.get_TB_table_data()
+        # Iterate through them all
+        for song in tb_songs:
+            # Fragment the columns to only what we need
+            song_num, title, _, _, _, _, person, _ = song
+            # Since there's 5 songs per person, get the first one
+            if (int(song_num)-1) % 5 == 0:
+                # Add it to the output string
+                chkp_string += f"{person}'s first song: {title}\n"
+        # Only reply if it's worth our while
+        if len(chkp_string) > 0:
+            await ctx.message.reply(chkp_string)
+
+    @commands.command(name="TBsong")
+    async def get_TB_song(self, ctx, songlink: str):
+        if ctx.message.author.bot:  # don't want to take commands from any bots
+            return
+
+        try:
+            song_id = None
+            if len(songlink) == 53:
+                song_id = songlink[(songlink.find("track/")+6):]
+            elif len(songlink) > 53:
+                startofid = songlink.find("track/")+6
+                endofid = songlink.find("?si=")
+                song_id = songlink[startofid:endofid]
+
+            if song_id is not None:
+                tb_songs = spfunct.get_TB_table_data()
+                for song in tb_songs:
+                    _, title, songID, _, _, playlist, _, role = song
+                    if song_id == songID:
+                        await ctx.message.reply(f"{title} is from <@&{role}>'s {playlist} playlist")
+            else:
+                raise Exception
+        except Exception:
+            await ctx.message.reply("Error getting song from provided URL")
