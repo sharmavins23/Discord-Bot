@@ -12,7 +12,7 @@ class SpotifyCommands(commands.Cog):
 
     # Update Tribe Blend 2.0
     @commands.command(name="updateTB2")
-    async def updateTB(self, ctx):
+    async def update_TB(self, ctx):
         if ctx.message.author.bot:  # don't want to take commands from any bots
             return
 
@@ -25,7 +25,7 @@ class SpotifyCommands(commands.Cog):
             await bot_chat.send("Tribe Blend 2.0 has been updated!")
 
     @commands.command(name="topartists")
-    async def findTopArtists(self, ctx, playlistID):
+    async def find_top_artists(self, ctx, playlistID):
         if ctx.message.author.bot:  # don't want to take commands from any bots
             return
 
@@ -42,3 +42,10 @@ class SpotifyCommands(commands.Cog):
             outputstring = outputstring+f"\n{i+1}: {name} with {count} songs"
         # Send the output string
         await ctx.message.reply(outputstring)
+
+    @commands.command(name="TBcheckpoints")
+    async def get_TB_chkp(self, ctx):
+        if ctx.message.author.bot:  # don't want to take commands from any bots
+            return
+
+        await ctx.message.reply(spfunct.get_checkpoints())

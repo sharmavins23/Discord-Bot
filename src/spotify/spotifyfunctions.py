@@ -1,5 +1,6 @@
 from datetime import datetime
 import random
+from subprocess import check_output
 from .. import tokens as tokens
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
@@ -398,6 +399,50 @@ def count_playlist_artists(playlistID):
 
     # Sort the final dictionary to make it easier to find the max
     return sort_artist_dict(artistCountDict)
+
+
+# Retrieve the tribe_blend_songs table
+def get_TB_table_data():
+    try:
+        # Connect to the DB
+        db_conn = psycopg2.connect(
+            tokens.get_database_url(), sslmode='require')
+        # Set the cursor
+        cur = db_conn.cursor()
+        # SELECT the values we want
+        cur.execute(
+            """
+            SELECT s.*, d.person_name, d.role_id
+            FROM tribe_blend_song as s
+            JOIN discord_user as d on d.discord_id = s.discord_id
+            """,
+        )
+        # Pull the top output row
+        tb_songs = cur.fetchall()
+        # Close the cursor
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if db_conn is not None:
+            db_conn.close()
+        if tb_songs is not None:
+            return tb_songs
+
+
+# Function for checkpoint annotations command
+def get_checkpoints() -> str:
+    # Setup blank string
+    chkp_string = ''
+    # Get the query results
+    tb_songs = get_TB_table_data()
+    # Iterate through them all
+    for song in tb_songs:
+        # Since there's 5 songs per person, get the first one
+        if (int(song[0])-1) % 5 == 0:
+            # Add it to the output string
+            chkp_string += f"{song[6]}'s first song: {song[1]}\n"
+    return chkp_string
 
 
 def sort_artist_dict(artistDict):
