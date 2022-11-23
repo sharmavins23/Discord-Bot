@@ -343,7 +343,7 @@ def update_TrBl2():
             TRUNCATE tribe_blend_song
             """
         )
-        for song in scraped_songs:
+        for song in scraped_songs.keys():
             cur.execute(
                 """
                 INSERT INTO tribe_blend_song (discord_id, playlist_id, song_spotify_id, song_title, song_url)
