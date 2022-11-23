@@ -357,7 +357,7 @@ def update_TrBl2():
         db_conn.commit()
         # Close the cursor
         cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
+    except (psycopg2.DatabaseError) as error:
         print(error)
     finally:
         if db_conn is not None:
