@@ -344,13 +344,14 @@ def update_TrBl2():
             """
         )
         for song in scraped_songs.keys():
+            track = scraped_songs[song]
             cur.execute(
                 """
                 INSERT INTO tribe_blend_song (discord_id, playlist_id, song_spotify_id, song_title, song_url)
                 VALUES (%s, %s, %s, %s, %s, %s);
                 """,
-                (tokens.get_person_data(song["Added By"], 'id'), song["Pulled From"],
-                 song["ID"], song["Title"], f"https://open.spotify.com/track/{song['ID']}")
+                (tokens.get_person_data(track["Added By"], 'id'), track["Pulled From"],
+                 track["ID"], track["Title"], f"https://open.spotify.com/track/{track['ID']}")
             )
 
         # Save the changes
