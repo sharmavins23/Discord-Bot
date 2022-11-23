@@ -129,9 +129,9 @@ dataDict = {
     'Ed': {
         'id': 212318224342056961,
         'role': 938256001847656498,
-        'spotifyid': None,
-        'onrepeat': None,
-        'repeatrewind': None,
+        'spotifyid': '31dnmpsmzxlx4nmh3hpwu625awfa',
+        'onrepeat': '37i9dQZF1EpwTREFiceW5T',
+        'repeatrewind': '37i9dQZF1EpFkTPe7Nl0Qv',
     },
     'Finn': {
         'id': 267520125710630913,
@@ -195,6 +195,13 @@ dataDict = {
         'spotifyid': "nia8wdzes92kopprtw6mlj4xz",
         'onrepeat': '37i9dQZF1EpgD6ACJX1Y4k',
         'repeatrewind': '37i9dQZF1EpUunxyPDyBAK',
+    },
+    'Sam': {
+        'id': 271089783323885579,
+        'role': 992875363673837609,
+        'spotifyid': '315wrb4upjcifhw3pqfykwwipgi4',
+        'onrepeat': None,
+        'repeatrewind': None,
     },
     'Tatsu': {
         'id': 172002275412279296,
