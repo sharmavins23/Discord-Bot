@@ -2,7 +2,7 @@
 
 The following is a printed overview of bot changes and release functionality.
 
-**Current version: [v1.6.2](#version-162)**
+**Current version: [v1.6.3](#version-163)**
 
 # Version 1
 
@@ -199,3 +199,13 @@ _Release date: August 14, 2022_
 - Implemented song annotation command for TB 2.0
 
 _Release date: November 22, 2022_
+
+### Version 1.6.3
+
+- Revamped random number once again. Added more edge case control
+  - Check for single number given
+  - Added limit check for count
+- Changed coin flip to send actual file
+- Throughly commented randomness.py
+
+_Release date: December 21, 2021_

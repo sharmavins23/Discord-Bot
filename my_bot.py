@@ -47,7 +47,8 @@ async def on_message(message):
     # instant replying with Radical Islam
     if "RADICAL ISLAM" in message.content.upper():
         context = await client.get_context(message)
-        await context.message.reply("https://media.discordapp.net/attachments/739822762062905487/1010339047614455838/image0.gif")
+        await context.message.reply(
+            "https://media.discordapp.net/attachments/739822762062905487/1010339047614455838/image0.gif")
 
     await client.process_commands(message)
 
@@ -72,7 +73,9 @@ async def command_help(context, command=None):
         help_message = 'The bio command returns information about the currently released version of the bot'
     elif command == "randomnumber":
         help_message = 'To use the random number command, type \'Pragosh, randomnumber `starting integer` `ending integer` `count`\' \
-                        \n\nNote: The count of generated numbers is optional. The default is 1'
+                        \n\nNotes: \
+                        \nYou can enter a single number. The output is x random numbers from 1 to 100 \
+                        \nThe count of generated numbers is optional. The default is 1 (when bounded).'
     elif command == "coinflip":
         help_message = 'The coin flip command returns a randomly flipped coin featuring the immortal Queen Elizabeth'
     elif command == "randomcolor":
@@ -80,7 +83,8 @@ async def command_help(context, command=None):
     elif command == "topartists":
         help_message = 'The top artists command provides you with the top 5 most common artists in a playlist \
                         \nTo use this command, type: \'Pragosh, topartists `playlist link`\' \
-                        \nFor example: \'Pragosh, topartists https://open.spotify.com/playlist/0fyr74e0hLjFJ3778Vw0SZ?si=0824b597bf5d4182\''
+                        \nFor example: \'Pragosh, topartists \
+                        https://open.spotify.com/playlist/0fyr74e0hLjFJ3778Vw0SZ?si=0824b597bf5d4182\''
     elif command == "TBcheckpoints":
         help_message = 'The TB checkpoints command gives you a transcript of the first song for everyone in \
                         the Tribe Blend 2.0 playlist, so you can find them easier.'
@@ -110,12 +114,12 @@ async def bot_bio(context):
     )
     bio_embed.add_field(
         name="Current Version",
-        value="v1.6.2",
+        value="v1.6.3",
         inline=True
     )
     bio_embed.add_field(
         name="Release Date",
-        value="November 22, 2022",
+        value="December 21, 2022",
         inline=True
     )
     await context.message.reply(embed=bio_embed)
