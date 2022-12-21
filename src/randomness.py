@@ -13,16 +13,14 @@ class Randomness(commands.Cog):
         if ctx.message.author.bot:  # don't want to take commands from any bots
             return
 
-        lower_bound = int(lower_bound)
-        upper_bound = int(upper_bound)
-
         # Check if we were given arguments
         if lower_bound is None:
             await ctx.message.reply("Give me a number, numb nuts.")
         # Check if we there's a negative lower bound
-        elif lower_bound < 0:
+        elif int(lower_bound) < 0:
             await ctx.message.reply("I'm a positive guy. I don't do negatives.")
         else:
+            lower_bound = int(lower_bound)
             # Check if we're getting a bunch of random numbers
             if upper_bound is None:
                 # Limit the number of random numbers
@@ -43,6 +41,7 @@ class Randomness(commands.Cog):
                 # Send reply output in Discord
                 await ctx.message.reply(f"Your random number(s): {random_numbers_str}")
             else:
+                upper_bound = int(upper_bound)
                 # Check if the bounds are the same number
                 if upper_bound == lower_bound:
                     await ctx.message.reply("Are you dumb or are you trolling??")
