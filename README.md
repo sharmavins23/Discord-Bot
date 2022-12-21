@@ -207,3 +207,5 @@ _Release date: November 22, 2022_
   - Added limit check for count
 - Changed coin flip to send actual file
 - Throughly commented randomness.py
+
+_Release date: December 21, 2021_
