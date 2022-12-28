@@ -114,12 +114,12 @@ async def bot_bio(context):
     )
     bio_embed.add_field(
         name="Current Version",
-        value="v1.6.3",
+        value="v1.6.3.1",
         inline=True
     )
     bio_embed.add_field(
         name="Release Date",
-        value="December 21, 2022",
+        value="December 27, 2022",
         inline=True
     )
     await context.message.reply(embed=bio_embed)

@@ -51,15 +51,13 @@ class SpotifyCommands(commands.Cog):
         # Setup blank string
         chkp_string = ''
         # Get the query results
-        tb_songs = spfunct.get_TB_table_data()
+        checkpoints = spfunct.get_TB_checkpoints()
         # Iterate through them all
-        for song in tb_songs:
+        for song in checkpoints:
             # Fragment the columns to only what we need
-            song_num, title, _, _, _, _, person, _ = song
+            _, person, title = song
             # Since there's 5 songs per person, get the first one
-            if (int(song_num)-1) % 5 == 0:
-                # Add it to the output string
-                chkp_string += f"{person}'s first song: {title}\n"
+            chkp_string += f"{person}'s first song: {title}\n"
         # Only reply if it's worth our while
         if len(chkp_string) > 0:
             await ctx.message.reply(chkp_string)
@@ -80,9 +78,9 @@ class SpotifyCommands(commands.Cog):
 
             if song_id is not None:
                 print(song_id)
-                tb_songs = spfunct.get_TB_table_data()
-                for song in tb_songs:
-                    _, title, songID, _, _, playlist, _, role = song
+                tb_song = spfunct.get_tb_song(song_id)
+                for song in tb_song:
+                    title, songID, playlist, role = song
                     if song_id == songID:
                         await ctx.message.reply(f"{title} is from <@&{role}>'s {playlist} playlist")
             else:
