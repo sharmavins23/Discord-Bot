@@ -1,6 +1,5 @@
 from datetime import datetime
 import random
-from subprocess import check_output
 from .. import tokens as tokens
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
@@ -337,7 +336,8 @@ def update_TrBl2():
             INSERT INTO tribe_blend_update (discord_id, updated_date)
             VALUES (%s, %s);
             """,
-            (tokens.get_person_data('Pragosh', 'id'), datetime.now()))
+            (tokens.get_person_data('Pragosh', 'id'), datetime.now())
+        )
 
         cur.execute(
             """
@@ -423,7 +423,7 @@ def get_TB_table_data():
             JOIN discord_user as d on d.discord_id = s.discord_id
             """,
         )
-        # Pull the top output row
+        # Pull all results
         tb_songs = cur.fetchall()
         # Close the cursor
         cur.close()
@@ -434,6 +434,84 @@ def get_TB_table_data():
             db_conn.close()
         if tb_songs is not None:
             return tb_songs
+
+
+# Query for the checkpoints in TB 2.0
+def get_TB_checkpoints():
+    """Does a basic SELECT * query on the TB2.0 table
+
+    Returns:
+        list: list of tuples with each tuple representing a row
+            (Song#, Title, Person)
+    """
+    tb_songs = None
+    try:
+        # Connect to the DB
+        db_conn = psycopg2.connect(
+            tokens.get_database_url(), sslmode='require')
+        # Set the cursor
+        cur = db_conn.cursor()
+        # SELECT the values we want
+        cur.execute(
+            """
+            SELECT DISTINCT ON (d.person_name) s.blend_song_id,
+                    d.person_name,
+                    s.song_title
+            FROM tribe_blend_song as s
+            JOIN discord_user as d on d.discord_id = s.discord_id
+            ORDER BY d.person_name ASC,
+                     s.blend_song_id ASC
+            """,
+        )
+        # Pull all results
+        tb_songs = cur.fetchall()
+        # Close the cursor
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if db_conn is not None:
+            db_conn.close()
+        if tb_songs is not None:
+            return tb_songs
+
+
+# Query for a specific song in the TB songs table
+def get_tb_song(song_id: str):
+    """Does a basic SELECT * query on the TB2.0 table
+
+    Returns:
+        list: list of tuples with each tuple representing a row
+            (Title, SpotID, PlaylistName, RoleID)
+    """
+    tb_song = None
+    try:
+        # Connect to the DB
+        db_conn = psycopg2.connect(
+            tokens.get_database_url(), sslmode='require')
+        # Set the cursor
+        cur = db_conn.cursor()
+        # SELECT the values we want
+        cur.execute(
+            """
+            SELECT s.song_title, s.song_spotify_id, s.playlist_id, d.role_id
+            FROM tribe_blend_song as s
+            JOIN discord_user as d on d.discord_id = s.discord_id
+            WHERE s.song_spotify_id = %s
+            """,
+            (song_id,)
+        )
+        # Pull all results
+        tb_song = cur.fetchall()
+        # Close the cursor
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if db_conn is not None:
+            db_conn.close()
+        if tb_song is not None:
+            return tb_song
 
 
 def sort_artist_dict(artistDict):
