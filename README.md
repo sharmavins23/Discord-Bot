@@ -2,7 +2,7 @@
 
 The following is a printed overview of bot changes and release functionality.
 
-**Current version: [v1.6.3](#version-163)**
+**Current version: [v1.6.3.1](#version-163)**
 
 # Version 1
 
@@ -208,4 +208,11 @@ _Release date: November 22, 2022_
 - Changed coin flip to send actual file
 - Throughly commented randomness.py
 
-_Release date: December 21, 2021_
+_Release date: December 21, 2022_
+
+**Version 1.6.3.1**
+
+- Refactored querying for checkpoints and songs in TB 2.0
+- Fixed bug where TBcheckpoints command returned Repeat Rewind songs
+
+_Release date: December 27, 2022_
