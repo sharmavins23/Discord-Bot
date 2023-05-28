@@ -43,6 +43,10 @@ def get_hw_tchat():
     return int(os.environ['HW_TCHAT'])
 
 
+def get_gaming_tchat():
+    return int(os.environ['GAMING_TCHAT'])
+
+
 def get_pics_tchat():
     return int(os.environ['PICS_TCHAT'])
 
@@ -51,8 +55,12 @@ def get_spam_tchat():
     return int(os.environ['SPAM_TCHAT'])
 
 
-def get_scary_tchat():
-    return int(os.environ['SCARY_TCHAT'])
+def get_pasta_tchat():
+    return int(os.environ['PASTA_TCHAT'])
+
+
+def get_gamble_chat():
+    return int(os.environ['GAMBLE_TCHAT'])
 
 
 def get_bot_tchat():
@@ -94,7 +102,7 @@ dataDict = {
     'Andy': {
         'id': 230889641073573889,
         'role': 739842129655758969,
-        'spotifyid': 'totalpwnage15',
+        'spotifyid': "totalpwnage15",
         'onrepeat': '37i9dQZF1Eph16PLUtoJ2N',
         'repeatrewind': '37i9dQZF1EpHW4SiooJKLj',
     },
@@ -115,7 +123,7 @@ dataDict = {
     'Brindle': {
         'id': 272072843917787148,
         'role': 739842298174767256,
-        'spotifyid': 'ht68kx83oyis801h03x3iqa59',
+        'spotifyid': "ht68kx83oyis801h03x3iqa59",
         'onrepeat': '37i9dQZF1EphTASg1unLVv',
         'repeatrewind': '37i9dQZF1EpDCsWLnTtdT7',
     },
@@ -129,16 +137,37 @@ dataDict = {
     'Ed': {
         'id': 212318224342056961,
         'role': 938256001847656498,
-        'spotifyid': '31dnmpsmzxlx4nmh3hpwu625awfa',
+        'spotifyid': "31dnmpsmzxlx4nmh3hpwu625awfa",
         'onrepeat': '37i9dQZF1EpwTREFiceW5T',
         'repeatrewind': '37i9dQZF1EpFkTPe7Nl0Qv',
+    },
+    'Ethan': {
+        'id': 705226751491440640,
+        'role': 1108846202478415882,
+        'spotifyid': "",
+        'onrepeat': '37i9dQZF1Epx653xrLCkz6',
+        'repeatrewind': '37i9dQZF1EpIEeFaLhJOIa',
     },
     'Finn': {
         'id': 267520125710630913,
         'role': 873272343592591420,
-        'spotifyid': 'freelancebean02',
+        'spotifyid': "freelancebean02",
         'onrepeat': None,
         'repeatrewind': None,
+    },
+    'Gick': {
+        'id': 490082119297662977,
+        'role': 887103144172068925,
+        'spotifyid': "7a9uyyfrf5m61tft6anmx3csp",
+        'onrepeat': '37i9dQZF1Epl5rl1qtGYhD',
+        'repeatrewind': '37i9dQZF1EpWchUpzDbcYs',
+    },
+    'Jess': {
+        'id': 294447477296201729,
+        'role': 1055228211774107659,
+        'spotifyid': "jeremybrower7",
+        'onrepeat': None,
+        'repeatrewind': None
     },
     'Joey': {
         'id': 402289709407141888,
@@ -150,7 +179,7 @@ dataDict = {
     'Kennedy': {
         'id': 329813627307687936,
         'role': 742208791004708984,
-        'spotifyid': '22x6phuiclyuuuqjalypbt74a',
+        'spotifyid': "22x6phuiclyuuuqjalypbt74a",
         'onrepeat': '37i9dQZF1EpiELg1ftzNgh',
         'repeatrewind': '37i9dQZF1EpJ5FSmj5o2Mr',
     },
@@ -164,7 +193,7 @@ dataDict = {
     'Logan': {
         'id': 328330822962905088,
         'role': 740545339622293604,
-        'spotifyid': 'q3tg252wqc5ntxe2fagbdtchu',
+        'spotifyid': "q3tg252wqc5ntxe2fagbdtchu",
         'onrepeat': '37i9dQZF1EpoNXfvyxK7HG',
         'repeatrewind': '37i9dQZF1EpHIChtwK4I34',
     },
@@ -179,13 +208,6 @@ dataDict = {
         'id': 902272488103366677,
         'role': 739842393481674783,
         'spotifyid': "fitterminator",
-        'onrepeat': "37i9dQZF1EpyPACl8m2SO3",
-        'repeatrewind': '37i9dQZF1EpCxNRIBP44gj',
-    },
-    'Gick': {
-        'id': 490082119297662977,
-        'role': 887103144172068925,
-        'spotifyid': "7a9uyyfrf5m61tft6anmx3csp",
         'onrepeat': None,
         'repeatrewind': None,
     },
@@ -199,7 +221,7 @@ dataDict = {
     'Sam': {
         'id': 271089783323885579,
         'role': 992875363673837609,
-        'spotifyid': '315wrb4upjcifhw3pqfykwwipgi4',
+        'spotifyid': "315wrb4upjcifhw3pqfykwwipgi4",
         'onrepeat': None,
         'repeatrewind': None,
     },
@@ -214,8 +236,8 @@ dataDict = {
         'id': 236964881213947914,
         'role': 739841745508106322,
         'spotifyid': "v9iqkldb8yaxvvifjqwhzijxx",
-        'onrepeat': "37i9dQZF1EpuLO8qSlx7VC",
-        'repeatrewind': "37i9dQZF1EpGWwKBPqIySc"
+        'onrepeat': '37i9dQZF1EpuLO8qSlx7VC',
+        'repeatrewind': '37i9dQZF1EpGWwKBPqIySc',
     },
     'Will': {
         'id': 122489106818138113,
@@ -227,14 +249,14 @@ dataDict = {
     'Pragosh': {
         'id': 796485108588216380,
         'role': 883740669020106812,
-        'spotifyid': 'mlgcongress',
+        'spotifyid': "mlgcongress",
         'onrepeat': None,
         'repeatrewind': None,
     },
     'AlphaPragosh': {
         'id': 942940638234681414,
         'role': 883740669020106812,
-        'spotifyid': 'mlgcongress',
+        'spotifyid': "mlgcongress",
         'onrepeat': None,
         'repeatrewind': None,
     }
