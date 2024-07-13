@@ -166,8 +166,8 @@ dataDict = {
         'id': 294447477296201729,
         'role': 1055228211774107659,
         'spotifyid': "jeremybrower7",
-        'onrepeat': 'C3CnwJUcS_Oypges6oAPVg',
-        'repeatrewind': '900IbQoLQwaVAhoQpNbddQ'
+        'onrepeat': '37i9dQZF1Epl5rl1qtGYhD',
+        'repeatrewind': '37i9dQZF1EpWchUpzDbcYs'
     },
     'Joey': {
         'id': 402289709407141888,
