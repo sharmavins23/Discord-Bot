@@ -7,12 +7,12 @@ import psycopg2
 
 class SpotifyPassives(commands.Cog):
     # Initialization
-    def __init__(self, bot):
+    async def __init__(self, bot):
         # Initialize bot as self from Cog
         self.bot = bot
 
         # start up background tasks
-        self.tribe_blend_checkup.start()
+        await self.tribe_blend_checkup.start()
 
     # Convert spotify IDs to Discord role IDs
     def spotifyid_to_discordid(self, spot_id):
