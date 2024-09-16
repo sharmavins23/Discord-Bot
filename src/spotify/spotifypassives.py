@@ -7,10 +7,11 @@ import psycopg2
 
 class SpotifyPassives(commands.Cog):
     # Initialization
-    async def __init__(self, bot):
+    def __init__(self, bot):
         # Initialize bot as self from Cog
         self.bot = bot
 
+    async def startup(self):
         # start up background tasks
         await self.tribe_blend_checkup.start()
 

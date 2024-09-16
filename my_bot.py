@@ -22,11 +22,8 @@ server_token = tokens.get_application_token()
 
 async def init_cogs():
     await bot.add_cog(Randomness(bot))
-    await bot.add_cog(SpotifyPassives(bot))
+    await bot.add_cog(SpotifyPassives(bot).startup())
     await bot.add_cog(SpotifyCommands(bot))
-
-# --- Work Time ---
-# Pragosh's startup sequence
 
 
 @bot.event
