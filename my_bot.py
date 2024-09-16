@@ -130,4 +130,4 @@ async def bot_bio(context):
 
 # --- Run Time ---
 asyncio.run(init_cogs())
-bot.run(server_token)
+asyncio.run(bot.run(server_token))
