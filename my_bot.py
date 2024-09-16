@@ -16,7 +16,7 @@ bot = commands.Bot(
     command_prefix=commands.when_mentioned_or('Pragosh, '),
     help_command=None,
     intents=discord.Intents(guilds=True,
-                            member=True,
+                            members=True,
                             emojis_and_stickers=True,
                             invites=True,
                             presences=True,
