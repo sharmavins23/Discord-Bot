@@ -15,7 +15,16 @@ from src.randomness import Randomness
 bot = commands.Bot(
     command_prefix=commands.when_mentioned_or('Pragosh, '),
     help_command=None,
-    intents=discord.Intents(value=590981660934081),
+    intents=discord.Intents(guilds=True,
+                            member=True,
+                            emojis_and_stickers=True,
+                            invites=True,
+                            presences=True,
+                            messages=True,
+                            reactions=True,
+                            typing=True,
+                            message_content=True,
+                            ),
 )
 server_token = tokens.get_application_token()
 
