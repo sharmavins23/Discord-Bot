@@ -22,7 +22,9 @@ server_token = tokens.get_application_token()
 
 async def init_cogs():
     await bot.add_cog(Randomness(bot))
-    await bot.add_cog(SpotifyPassives(bot).startup())
+    passive_cog = SpotifyPassives(bot)
+    await bot.add_cog(passive_cog)
+    await passive_cog.startup()
     await bot.add_cog(SpotifyCommands(bot))
 
 
