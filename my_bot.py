@@ -3,6 +3,7 @@
 # Don't copy this or I might cry
 
 # Imports because it's cool to have other stuff
+import asyncio
 import discord
 from discord.ext import commands
 from src.spotify.spotifypassives import SpotifyPassives
@@ -11,52 +12,54 @@ import src.tokens as tokens
 from src.randomness import Randomness
 
 # Initialize bot
-client = commands.Bot(
+bot = commands.Bot(
     command_prefix=commands.when_mentioned_or('Pragosh, '),
     help_command=None,
     intents=discord.Intents.all(),
 )
-client.add_cog(Randomness(client))
-client.add_cog(SpotifyPassives(client))
-client.add_cog(SpotifyCommands(client))
-
-# Variables because calling stuff smaller stuff makes me a happy chappy
 server_token = tokens.get_application_token()
 
 
+async def init_cogs():
+    await bot.add_cog(Randomness(bot))
+    await bot.add_cog(SpotifyPassives(bot))
+    await bot.add_cog(SpotifyCommands(bot))
+
 # --- Work Time ---
 # Pragosh's startup sequence
-@client.event
+
+
+@bot.event
 async def on_ready():
-    bot_chat = client.get_channel(tokens.get_bot_tchat())
+    bot_chat = bot.get_channel(tokens.get_bot_tchat())
     await bot_chat.send('I am Pragosh. And I am the Messiah')
 
 
 # Pragosh's responses to messages
-@client.event
+@bot.event
 async def on_message(message):
-    if message.author == client.user:  # don't want to check our own messages
+    if message.author == bot.user:  # don't want to check our own messages
         return
     # instant replying to "Tatsu#8792"
     if message.author.id == tokens.get_person_data('Tatsu', 'id'):
-        context = await client.get_context(message)
+        context = await bot.get_context(message)
         await context.message.reply("Please stop abusing your girlfriend")
     # instant WillPOG-ing
     if "POG" in message.content.upper():
-        will_pog_emoji = client.get_emoji(918323637398941716)
+        will_pog_emoji = bot.get_emoji(918323637398941716)
         await message.add_reaction(will_pog_emoji)
     # instant replying with Radical Islam
     if "RADICAL ISLAM" in message.content.upper():
-        context = await client.get_context(message)
+        context = await bot.get_context(message)
         await context.message.reply(
             "https://media.discordapp.net/attachments/739822762062905487/1010339047614455838/image0.gif")
 
-    await client.process_commands(message)
+    await bot.process_commands(message)
 
 
 # - Pragosh's direct commands -
 # Help Command
-@client.command(name="help")
+@bot.command(name="help")
 async def command_help(context, command=None):
     if context.message.author.bot:  # don't want to take commands from any bots
         return
@@ -97,7 +100,7 @@ async def command_help(context, command=None):
 
 
 # Bot Information Command
-@client.command(name="bio")
+@bot.command(name="bio")
 async def bot_bio(context):
     if context.message.author.bot:  # don't want to take commands from any bots
         return
@@ -127,4 +130,5 @@ async def bot_bio(context):
 
 
 # --- Run Time ---
-client.run(server_token)
+asyncio.run(init_cogs())
+bot.run(server_token)
