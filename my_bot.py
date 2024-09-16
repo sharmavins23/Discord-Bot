@@ -13,7 +13,8 @@ from src.randomness import Randomness
 # Initialize bot
 client = commands.Bot(
     command_prefix=commands.when_mentioned_or('Pragosh, '),
-    help_command=None
+    help_command=None,
+    intents=discord.Intents.all(),
 )
 client.add_cog(Randomness(client))
 client.add_cog(SpotifyPassives(client))
