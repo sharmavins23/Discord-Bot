@@ -31,9 +31,9 @@ server_token = tokens.get_application_token()
 
 @bot.event
 async def on_ready():
-    bot.add_cog(Randomness(bot))
-    bot.add_cog(SpotifyPassives(bot))
-    bot.add_cog(SpotifyCommands(bot))
+    await bot.add_cog(Randomness(bot))
+    await bot.add_cog(SpotifyPassives(bot))
+    await bot.add_cog(SpotifyCommands(bot))
     bot_chat = bot.get_channel(tokens.get_bot_tchat())
     await bot_chat.send('I am Pragosh. And I am the Messiah')
 
