@@ -10,10 +10,7 @@ class SpotifyPassives(commands.Cog):
     def __init__(self, bot):
         # Initialize bot as self from Cog
         self.bot = bot
-
-    async def startup(self):
-        # start up background tasks
-        await self.tribe_blend_checkup.start()
+        self.tribe_blend_checkup.start()
 
     # Convert spotify IDs to Discord role IDs
     def spotifyid_to_discordid(self, spot_id):

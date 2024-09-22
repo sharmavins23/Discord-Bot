@@ -31,11 +31,9 @@ server_token = tokens.get_application_token()
 
 @bot.event
 async def on_ready():
-    await bot.add_cog(Randomness(bot))
-    passive_cog = SpotifyPassives(bot)
-    await bot.add_cog(passive_cog)
-    await passive_cog.startup()
-    await bot.add_cog(SpotifyCommands(bot))
+    bot.add_cog(Randomness(bot))
+    bot.add_cog(SpotifyPassives(bot))
+    bot.add_cog(SpotifyCommands(bot))
     bot_chat = bot.get_channel(tokens.get_bot_tchat())
     await bot_chat.send('I am Pragosh. And I am the Messiah')
 
